@@ -1,0 +1,35 @@
+<div class="context-menu-item-content" (mouseenter)="onMouseEnter($event, menuItem)"
+     (click)="onMenuItemSelected($event, menuItem)" *ngIf="!menuItem.divider">
+    <div class="icon">
+        <ng-container *ngIf="menuItem.image && !menuItem.icon && !menuItem.iconTemplate && !menuItem.toggleable">
+            <img [src]="menuItem.image" alt=""/>
+        </ng-container>
+        <ng-container *ngIf="!!menuItem.iconTemplate && !menuItem.toggleable">
+            <ng-container
+                *ngTemplateOutlet="getTemplate(menuItem.iconTemplate); context: { $implicit: menuItem }"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="menuItem.icon && !menuItem.image && !menuItem.iconTemplate && !menuItem.toggleable">
+            <i [attr.class]="menuItem.icon"></i>
+        </ng-container>
+        <ng-container *ngIf="menuItem.toggleable && menuItem.toggled && !(menuItem.menuItems?.length>0)">
+            <!-- <i>&#x2714;</i> -->
+            <img [src]="getToggleIcon()" alt=""/>
+        </ng-container>
+    </div>
+    <div class="text">
+        <ng-container *ngIf="!!menuItem.textTemplate">
+            <ng-container *ngTemplateOutlet="getTemplate(menuItem.textTemplate); context: { $implicit: menuItem }">
+            </ng-container>
+        </ng-container>
+        <ng-container *ngIf="!menuItem.textTemplate">{{menuItem.text}}</ng-container>
+    </div>
+    <div class="link">
+        <span *ngIf="menuItem.menuItems?.length>0">&rsaquo;</span>
+    </div>
+</div>
+
+<ng-template #submenuTemplate>
+    <yui-contextmenu-content [menuItems]="menuItem?.menuItems" [depth]="depth+1" *ngIf="menuItem?.menuItems?.length>0"
+                             [menuClass]="menuClass" [attr.class]="menuClass" [attr.tabindex]="0"
+                             [rootMenuId]="rootMenuId" [changeCallback]="changeCallback"></yui-contextmenu-content>
+</ng-template>

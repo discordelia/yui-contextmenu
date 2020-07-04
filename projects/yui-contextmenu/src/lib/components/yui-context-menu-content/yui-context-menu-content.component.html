@@ -1,0 +1,13 @@
+<ul class="context-menu-list" tabindex="0">
+    <ng-container *ngFor="let menuItem of menuItems">
+        <li *ngIf="menuItem.visible" class="context-menu-list-item"
+            [ngClass]="{'disabled': menuItem.disabled, 'divider': menuItem.divider, 'focused': menuItem.focused}">
+            <yui-contextmenu-item [menuItem]="menuItem" [depth]="depth" [rootMenuId]="rootMenuId"
+                                  [menuClass]="menuClass"
+                                  (menuHover)="onMenuItemHovered($event)" [changeCallback]="changeCallback"
+                                  *ngIf="!menuItem.divider" [attr.tabindex]="0"
+                                  [attr.class]="menuClass"></yui-contextmenu-item>
+            <span class="divider" *ngIf="menuItem.divider"></span>
+        </li>
+    </ng-container>
+</ul>

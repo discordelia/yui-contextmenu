@@ -1,0 +1,60 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:host {
+    width: 100%;
+    height: 100%;
+    outline: none;
+}
+
+div.context-menu-item-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+
+    & > div {
+        display: flex;
+        align-items: center;
+    }
+
+    & > div.icon {
+        width: 25px;
+        height: 100%;
+        justify-content: center;
+        & img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+    }
+
+    & > div.link {
+        width: 25px;
+        height: 100%;
+        justify-content: flex-end;
+        align-items: flex-end;
+        font-size: 24px;
+        padding-right: 5px;
+        margin-top: -2px;
+
+        & > span {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            height: 100%;
+            font-family: serif;
+        }
+    }
+
+    & > div.text {
+        flex: 1;
+        height: 100%;
+        justify-content: flex-start;
+        // padding: 0 15px 0 5px;
+    }
+}
