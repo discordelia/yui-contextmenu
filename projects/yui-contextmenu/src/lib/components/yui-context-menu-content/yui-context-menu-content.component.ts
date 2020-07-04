@@ -59,6 +59,10 @@ export class YuiContextMenuContentComponent implements AfterViewInit, OnDestroy 
 
     public onMenuItemHovered(event: IMenuItemContextMenuRefPair): void {
         if (event.menuItem.disabled) {
+            if (this.previousMenuItem) {
+                this.previousMenuItem.focused = false;
+                this.keyManager.setActiveItem(null);
+            }
             return;
         }
         if (!this.previousMenuItem) {
