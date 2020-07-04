@@ -1,3 +1,6 @@
+$subtext-color: #666;
+$subtext-disabled-color: lightgray;
+
 *,
 *::before,
 *::after {
@@ -33,6 +36,16 @@ div.context-menu-item-content {
         }
     }
 
+    & > div.subtext {
+        justify-content: flex-end;
+        align-items: center;
+        margin-left: 25px;
+        color: $subtext-color;
+        &.disabled {
+            color: $subtext-disabled-color;
+        }
+    }
+
     & > div.link {
         width: 25px;
         height: 100%;
@@ -55,6 +68,6 @@ div.context-menu-item-content {
         flex: 1;
         height: 100%;
         justify-content: flex-start;
-        // padding: 0 15px 0 5px;
+        margin-right: 5px;
     }
 }

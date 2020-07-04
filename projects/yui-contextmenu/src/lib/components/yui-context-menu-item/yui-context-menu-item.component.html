@@ -23,6 +23,12 @@
         </ng-container>
         <ng-container *ngIf="!menuItem.textTemplate">{{menuItem.text}}</ng-container>
     </div>
+    <div class="subtext" *ngIf="!!menuItem.subtext || !!menuItem.subtextTemplate" [ngClass]="{'disabled': menuItem.disabled}">
+        <ng-container *ngIf="!!menuItem.subtextTemplate">
+            <ng-container *ngTemplateOutlet="getTemplate(menuItem.subtextTemplate); context: { $implicit: menuItem }"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="!menuItem.subtextTemplate">{{menuItem.subtext}}</ng-container>
+    </div>
     <div class="link">
         <span *ngIf="menuItem.menuItems?.length>0">&rsaquo;</span>
     </div>

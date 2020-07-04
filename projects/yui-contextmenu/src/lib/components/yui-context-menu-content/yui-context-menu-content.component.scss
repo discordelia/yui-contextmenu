@@ -46,9 +46,6 @@ ul.context-menu-list {
         &.focused {
             @include focusedItem();
         }
-        // &:not(.divider):hover {
-        //     @include focusedItem();
-        // }
         & > span.divider {
             display: block;
             height: 1px;

@@ -1,6 +1,6 @@
-import { Component, OnInit, ContentChildren, QueryList, Input, Output, EventEmitter, TemplateRef } from "@angular/core";
-import { IMenuItem } from "../../interfaces/IMenuItem";
-import { IExtendedMenuItem } from "../../interfaces/IExtendedMenuItem";
+import {Component, OnInit, ContentChildren, QueryList, Input, Output, EventEmitter, TemplateRef} from "@angular/core";
+import {IMenuItem} from "../../interfaces/IMenuItem";
+import {IExtendedMenuItem} from "../../interfaces/IExtendedMenuItem";
 
 @Component({
     selector: "yui-menu-item",
@@ -30,6 +30,14 @@ export class YuiMenuItemComponent implements OnInit {
 
     @Input() set image(image: string) {
         this.menuItem.image = image;
+    }
+
+    @Input() set subtext(subtext: string) {
+        this.menuItem.subtext = subtext;
+    }
+
+    @Input() set subtextTemplate(template: TemplateRef<any>) {
+        this.menuItem.subtextTemplate = template;
     }
 
     @Input() set text(text: string) {

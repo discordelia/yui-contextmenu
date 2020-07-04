@@ -8,6 +8,8 @@ export interface IMenuItem {
     image?: string;
     menuItems?: IMenuItem[];
     select?: (item?: IMenuItem) => void;
+    subtext?: string;
+    subtextTemplate?: TemplateType;
     text?: string;
     textTemplate?: TemplateType;
     toggleable?: boolean;
