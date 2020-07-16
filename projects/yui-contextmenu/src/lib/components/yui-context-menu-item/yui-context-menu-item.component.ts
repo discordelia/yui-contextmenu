@@ -93,7 +93,9 @@ export class YuiContextMenuItemComponent implements OnInit, OnDestroy, Highlight
     }
 
     public onMenuItemSelected(event: Event, item: IExtendedMenuItem): void {
-        if (item.menuItems?.length > 0) {
+        if (item.menuItems?.length > 0 || item.disabled) {
+            event.stopImmediatePropagation();
+            event.stopPropagation();
             return;
         }
         this.contextMenuService.closeMenu(this.rootMenuId);

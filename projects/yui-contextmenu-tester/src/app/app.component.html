@@ -3,8 +3,8 @@
                      (menuOpen)="onMenuOpen($event)" (menuClose)="onMenuClose($event)"
                      (menuChange)="onMenuChange($event)">
         <yui-menu-item text="Create New Data Source" [subtext]="'Ctrl+N'" [toggleable]="true" [(toggled)]="toggleTest"
-                       [icon]="'fa fa-plus'"></yui-menu-item>
-        <yui-menu-item text="Context Menu Item II" [icon]="iconTest" [subtext]="'Ctrl+Shift+Right Arrow'" [disabled]="true">
+                       [icon]="'fa fa-plus'" [disabled]="true" (select)="clickTest()"></yui-menu-item>
+        <yui-menu-item text="Context Menu Item II" [icon]="iconTest" [subtext]="'Ctrl+Shift+Right Arrow'" [disabled]="false">
             <yui-menu-item text="Submenu I" [visible]="visibleTest">
                 <yui-menu-item text="Submenu Submenu" [disabled]="disabledTest"></yui-menu-item>
             </yui-menu-item>

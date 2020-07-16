@@ -61,7 +61,9 @@ export class YuiContextMenuContentComponent implements AfterViewInit, OnDestroy 
         if (event.menuItem.disabled) {
             if (this.previousMenuItem) {
                 this.previousMenuItem.focused = false;
+                this.contextMenuService.removeMenuViaDepth(this.depth, this.rootMenuId);
                 this.keyManager.setActiveItem(null);
+                this.changeCallback();
             }
             return;
         }

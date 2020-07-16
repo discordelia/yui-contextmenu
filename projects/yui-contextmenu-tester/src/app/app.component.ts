@@ -1,7 +1,7 @@
-import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
-import { faCoffee, faEye, faPlus, faTrash, faEdit, faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import { IMenuItem } from "../../../yui-contextmenu/src/lib/interfaces/IMenuItem";
-import { IContextMenuData } from "../../../yui-contextmenu/src/lib/interfaces/IContextMenuData";
+import {Component, OnInit, TemplateRef, ViewChild} from "@angular/core";
+import {faCoffee, faEye, faPlus, faTrash, faEdit, faChevronDown} from "@fortawesome/free-solid-svg-icons";
+import {IMenuItem} from "../../../yui-contextmenu/src/lib/interfaces/IMenuItem";
+import {IContextMenuData} from "../../../yui-contextmenu/src/lib/interfaces/IContextMenuData";
 
 
 @Component({
@@ -130,6 +130,10 @@ export class AppComponent implements OnInit {
 
     public onMenuOpen(event: IContextMenuData): void {
         console.log("MENU OPENED: ", event);
+    }
+
+    public clickTest(): void {
+        console.log("Click went through disabled.");
     }
 
     public updateMenutext(): void {
