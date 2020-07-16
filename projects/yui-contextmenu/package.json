@@ -1,6 +1,6 @@
 {
     "name": "@yulize/contextmenu",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "A simple contextmenu component for Angular v9+.",
     "author": {
         "name": "Yulize"
