@@ -95,7 +95,7 @@ export class YuiContextMenuComponent implements OnInit, AfterViewInit, AfterCont
     @HostListener("document:click", ["$event"])
     public onClickedOutside(event: MouseEvent): void {
         const eventTarget = event.target as Element;
-        if (eventTarget === this.target) { //  || !!eventTarget.closest("yui-contextmenu-item")
+        if (!!eventTarget.closest("yui-contextmenu")) {
             return;
         }
         if (this.visible) {

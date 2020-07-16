@@ -19,7 +19,33 @@
     </yui-contextmenu>
     <button #buttonElement>CONTEXT MENU</button>
 
-    <yui-contextmenu [target]="divElement" [menuItems]="null" [trigger]="'click'" [precise]="false"
+<!--    <yui-contextmenu [target]="wrapperElement" [menuItems]="null" [trigger]="'click'" [precise]="false"-->
+<!--                     (menuOpen)="onMenuOpen($event)" (menuClose)="onMenuClose($event)"-->
+<!--                     (menuChange)="onMenuChange($event)">-->
+<!--        <yui-menu-item text="Export Data" [toggleable]="true" [(toggled)]="toggleTest" [icon]="'fa fa-upload'"-->
+<!--                       [disabled]="true">-->
+<!--            <yui-menu-item text="Export as XML" icon="fa fa-upload" [disabled]="true"></yui-menu-item>-->
+<!--            <yui-menu-item text="Export as JSON" [icon]="'fa fa-star'" [disabled]="true"></yui-menu-item>-->
+<!--            <yui-menu-item text="Export as CSV" [icon]="'fa fa-file-excel-o'" [disabled]="true"></yui-menu-item>-->
+<!--        </yui-menu-item>-->
+<!--        <yui-menu-item [divider]="true"></yui-menu-item>-->
+<!--        <yui-menu-item text="Context Menu Item III" (select)="selectTestMethod($event)"-->
+<!--                       [iconTemplate]="iconTemplateTest">-->
+<!--            <yui-menu-item text="Submenu I" [visible]="visibleTest">-->
+<!--                <yui-menu-item text="Submenu Submenu" [disabled]="disabledTest"></yui-menu-item>-->
+<!--            </yui-menu-item>-->
+<!--            <yui-menu-item [text]="menuText.toString()"></yui-menu-item>-->
+<!--        </yui-menu-item>-->
+<!--        <yui-menu-item text="Close" [icon]="'fa fa-times'"></yui-menu-item>-->
+<!--    </yui-contextmenu>-->
+<!--    <div #divElement class="dropdown">-->
+<!--        <span>Dropdown</span>-->
+<!--        <fa-icon [icon]="dropdownIcon" style="margin-left: 5px;"></fa-icon>-->
+<!--    </div>-->
+</div>
+
+<div style="width: 500px; height: 500px; display: flex; background: #224422" #greenbox>
+    <yui-contextmenu [target]="greenbox" [menuItems]="null" [trigger]="'contextmenu'" [precise]="true"
                      (menuOpen)="onMenuOpen($event)" (menuClose)="onMenuClose($event)"
                      (menuChange)="onMenuChange($event)">
         <yui-menu-item text="Export Data" [toggleable]="true" [(toggled)]="toggleTest" [icon]="'fa fa-upload'"
@@ -38,10 +64,6 @@
         </yui-menu-item>
         <yui-menu-item text="Close" [icon]="'fa fa-times'"></yui-menu-item>
     </yui-contextmenu>
-    <div #divElement class="dropdown">
-        <span>Dropdown</span>
-        <fa-icon [icon]="dropdownIcon" style="margin-left: 5px;"></fa-icon>
-    </div>
 </div>
 
 <ng-template #coffeeIconTemplate>
