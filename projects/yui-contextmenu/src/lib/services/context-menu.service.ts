@@ -4,7 +4,7 @@ import { IContextMenuRef } from "../interfaces/IContextMenuRef";
 import { IContextMenuTarget } from "../interfaces/IContextMenuTarget";
 import { IContextMenuData } from "../interfaces/IContextMenuData";
 import { Subscription, Subject } from "rxjs";
-import { YuiPopupService } from "@yulize/popup";
+import { YuiPopupService } from "@discordelia/popup";
 
 @Injectable()
 export class ContextMenuService {

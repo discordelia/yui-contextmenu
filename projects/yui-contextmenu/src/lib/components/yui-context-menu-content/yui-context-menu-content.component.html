@@ -5,9 +5,9 @@
             <yui-contextmenu-item [menuItem]="menuItem" [depth]="depth" [rootMenuId]="rootMenuId"
                                   [menuClass]="menuClass"
                                   (menuHover)="onMenuItemHovered($event)" [changeCallback]="changeCallback"
-                                  *ngIf="!menuItem.divider" [attr.tabindex]="0"
+                                   [attr.tabindex]="0"
                                   [attr.class]="menuClass"></yui-contextmenu-item>
-            <span class="divider" *ngIf="menuItem.divider"></span>
+<!--            <span class="divider" *ngIf="menuItem.divider"></span>-->
         </li>
     </ng-container>
 </ul>

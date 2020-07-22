@@ -71,3 +71,11 @@ div.context-menu-item-content {
         margin-right: 5px;
     }
 }
+span.divider {
+    display: block;
+    height: 1px;
+    width: 100%;
+    margin: 4px 0;
+    color: lightgray;
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+}

@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { YuiPopupModule } from "@yulize/popup";
+import { YuiPopupModule } from "@discordelia/popup";
 import { CommonModule } from "@angular/common";
 import { OverlayModule } from "@angular/cdk/overlay";
 import { YuiContextMenuComponent } from "./components/yui-context-menu/yui-context-menu.component";

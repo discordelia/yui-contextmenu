@@ -1,9 +1,9 @@
 {
-    "name": "@yulize/contextmenu",
-    "version": "0.1.3",
+    "name": "@discordelia/contextmenu",
+    "version": "0.1.4",
     "description": "A simple contextmenu component for Angular v9+.",
     "author": {
-        "name": "Yulize"
+        "name": "Discordelia"
     },
     "keywords": [
         "angular",
@@ -15,17 +15,17 @@
         "ng-contextmenu",
         "ngx-contextmenu",
         "yui-contextmenu",
-        "yulize"
+        "discordelia"
     ],
     "license": "MIT",
     "repository": {
-        "url": "https://github.com/yulize/yui-contextmenu"
+        "url": "https://github.com/discordelia/yui-contextmenu"
     },
     "peerDependencies": {
         "@angular/common": "^9.1.7",
         "@angular/core": "^9.1.7",
         "@angular/cdk": "^9.2.4",
-        "@yulize/popup": "^0.0.6",
+        "@discordelia/popup": "^0.0.2",
         "tslib": "^1.10.0"
     }
 }

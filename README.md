@@ -18,7 +18,7 @@ _Documentation is work in progress._
 * Install the following packages:
     
 ```
-npm i @angular/cdk @yulize/popup @yulize/contextmenu
+npm i @angular/cdk @discordelia/popup @discordelia/contextmenu
 ```
 
 * Add the following line to your global stylesheet file (styles.scss)

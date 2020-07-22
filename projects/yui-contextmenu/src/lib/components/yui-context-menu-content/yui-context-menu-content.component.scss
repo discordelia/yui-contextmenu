@@ -37,7 +37,6 @@ ul.context-menu-list {
         height: 25px;
         font-size: 13px;
         &.disabled {
-            // pointer-events: none;
             color: lightgray;
         }
         &.divider {
@@ -45,13 +44,6 @@ ul.context-menu-list {
         }
         &.focused {
             @include focusedItem();
-        }
-        & > span.divider {
-            display: block;
-            height: 1px;
-            width: 100%;
-            margin: 4px 0;
-            border-top: 1px solid rgba(0, 0, 0, 0.125);
         }
     }
 }

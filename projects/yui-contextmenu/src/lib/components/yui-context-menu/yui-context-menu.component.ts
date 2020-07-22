@@ -10,7 +10,7 @@ import {
     HostListener, Output, EventEmitter
 } from "@angular/core";
 import { ContextMenuService } from "../../services/context-menu.service";
-import { ICoordinate, IPopupTarget } from "@yulize/popup";
+import { ICoordinate, IPopupTarget } from "@discordelia/popup";
 import { YuiMenuItemComponent } from "../yui-menu-item/yui-menu-item.component";
 import { Subscription } from "rxjs";
 import { IExtendedMenuItem } from "../../interfaces/IExtendedMenuItem";

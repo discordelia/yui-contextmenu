@@ -33,6 +33,7 @@
         <span *ngIf="menuItem.menuItems?.length>0">&rsaquo;</span>
     </div>
 </div>
+<span class="divider" *ngIf="menuItem.divider" (click)="onMenuItemSelected($event, menuItem)"></span>
 
 <ng-template #submenuTemplate>
     <yui-contextmenu-content [menuItems]="menuItem?.menuItems" [depth]="depth+1" *ngIf="menuItem?.menuItems?.length>0"
