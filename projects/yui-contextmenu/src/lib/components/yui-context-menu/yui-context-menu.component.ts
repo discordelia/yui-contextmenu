@@ -7,21 +7,21 @@ import {
     ContentChildren,
     QueryList,
     AfterContentInit,
-    HostListener, Output, EventEmitter
+    HostListener, Output, EventEmitter, OnChanges, SimpleChanges
 } from "@angular/core";
-import { ContextMenuService } from "../../services/context-menu.service";
-import { ICoordinate, IPopupTarget } from "@discordelia/popup";
-import { YuiMenuItemComponent } from "../yui-menu-item/yui-menu-item.component";
-import { Subscription } from "rxjs";
-import { IExtendedMenuItem } from "../../interfaces/IExtendedMenuItem";
-import { IContextMenuData } from "../../interfaces/IContextMenuData";
+import {ContextMenuService} from "../../services/context-menu.service";
+import {ICoordinate, IPopupTarget} from "@discordelia/popup";
+import {YuiMenuItemComponent} from "../yui-menu-item/yui-menu-item.component";
+import {Subscription} from "rxjs";
+import {IExtendedMenuItem} from "../../interfaces/IExtendedMenuItem";
+import {IContextMenuData} from "../../interfaces/IContextMenuData";
 
 @Component({
     selector: "yui-contextmenu",
     templateUrl: "./yui-context-menu.component.html",
     styleUrls: ["./yui-context-menu.component.scss"]
 })
-export class YuiContextMenuComponent implements OnInit, AfterViewInit, AfterContentInit, OnDestroy {
+export class YuiContextMenuComponent implements OnInit, AfterViewInit, AfterContentInit, OnDestroy, OnChanges {
 
     private menuData: IContextMenuData = null;
     private subMenuItemsSubscription$: Subscription;
@@ -33,6 +33,7 @@ export class YuiContextMenuComponent implements OnInit, AfterViewInit, AfterCont
     public menuChangeEvent: () => void = null;
 
     @ContentChildren(YuiMenuItemComponent) subMenuItems: QueryList<YuiMenuItemComponent>;
+    @Input() event: MouseEvent;
     @Input() menuClass: string;
     @Input() menuItems: IExtendedMenuItem[] = [];
     @Input() precise: boolean = true;
@@ -56,6 +57,18 @@ export class YuiContextMenuComponent implements OnInit, AfterViewInit, AfterCont
         this.menuChangeEvent = () => this.menuChange.emit(this.menuData);
     }
 
+    ngOnChanges(changes: SimpleChanges) {
+        const targetChanges = changes?.target;
+        if (targetChanges && !targetChanges.isFirstChange()
+            && targetChanges.currentValue !== targetChanges.previousValue) {
+            this.targetListener?.();
+            this.createTargetListener();
+            window.setTimeout(() => {
+                (this.target as HTMLElement).dispatchEvent(this.event);
+            });
+        }
+    }
+
     ngAfterContentInit(): void {
         if (this.menuItems?.length > 0) {
             return;
@@ -69,19 +82,10 @@ export class YuiContextMenuComponent implements OnInit, AfterViewInit, AfterCont
     }
 
     ngAfterViewInit(): void {
-        this.targetListener = this.renderer.listen(this.target, this.trigger, (event: MouseEvent) => {
-            event.stopPropagation();
-            event.preventDefault();
-            this.contextMenuService.closeAll();
-
-            const target = this.precise ? { x: event.x, y: event.y } as ICoordinate : this.target;
-            const contextMenuRef = this.contextMenuService.createContextMenu(target, this.contextMenuTemplate, false);
-
-            this.menuData = { contextMenuRef, depth: this.depth, menuId: this.menuId, rootMenuId: null, isSubmenu: false };
-            this.contextMenuService.addActiveMenu(this.menuData);
-            this.menuOpen.emit(this.menuData);
-            this.visible = true;
-        });
+        if (!this.target) {
+            return;
+        }
+        this.createTargetListener();
     }
 
     ngOnDestroy(): void {
@@ -120,6 +124,22 @@ export class YuiContextMenuComponent implements OnInit, AfterViewInit, AfterCont
         if (!this.menuItems || this.menuItems.length === 0) {
             this.menuItems = this.subMenuItems.map(smi => smi.getMenuItemData() as IExtendedMenuItem);
         }
+    }
+
+    private createTargetListener(): void {
+        this.targetListener = this.renderer.listen(this.target, this.trigger, (event: MouseEvent) => {
+            event.stopPropagation();
+            event.preventDefault();
+            this.contextMenuService.closeAll();
+
+            const target = this.precise ? {x: event.x, y: event.y} as ICoordinate : this.target;
+            const contextMenuRef = this.contextMenuService.createContextMenu(target, this.contextMenuTemplate, false);
+
+            this.menuData = {contextMenuRef, depth: this.depth, menuId: this.menuId, rootMenuId: null, isSubmenu: false};
+            this.contextMenuService.addActiveMenu(this.menuData);
+            this.menuOpen.emit(this.menuData);
+            this.visible = true;
+        });
     }
 
     private initializeMenuItems(items: IExtendedMenuItem[]): void {

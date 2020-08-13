@@ -66,6 +66,22 @@
     </yui-contextmenu>
 </div>
 
+<div style="background: chocolate; color: black;" (contextmenu)="openDynamicContextMenu($event)">
+    Dynamic ContextMenu (Right-click)
+</div>
+
+<p style="background: greenyellow; color: black;" (click)="openDynamicContextMenu($event)">
+    Dynamic ContextMenu 2 (Left-click)
+</p>
+
+<yui-contextmenu [target]="contextMenuTargetElement" (menuClose)="onMenuClose($event)"
+    [event]="menuEvent" [trigger]="menuEvent?.type">
+    <yui-menu-item text="Add"></yui-menu-item>
+    <yui-menu-item text="Edit"></yui-menu-item>
+    <yui-menu-item text="Delete"></yui-menu-item>
+    <yui-menu-item text="Change Background Color" (select)="changeBgColor()"></yui-menu-item>
+</yui-contextmenu>
+
 <ng-template #coffeeIconTemplate>
     <fa-icon [icon]="coffeeIcon"></fa-icon>
 </ng-template>

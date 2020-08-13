@@ -1,7 +1,6 @@
 import {Component, OnInit, TemplateRef, ViewChild} from "@angular/core";
 import {faCoffee, faEye, faPlus, faTrash, faEdit, faChevronDown} from "@fortawesome/free-solid-svg-icons";
-import {IMenuItem} from "../../../yui-contextmenu/src/lib/interfaces/IMenuItem";
-import {IContextMenuData} from "../../../yui-contextmenu/src/lib/interfaces/IContextMenuData";
+import {IMenuItem, IContextMenuData} from "yui-contextmenu";
 
 
 @Component({
@@ -18,6 +17,7 @@ export class AppComponent implements OnInit {
     public viewIcon = faEye;
     public editIcon = faEdit;
     public dropdownIcon = faChevronDown;
+    public bgColor: string = "#fff";
 
     public iconTest: string = "fa fa-plus";
     public iconTemplateTest: TemplateRef<any>;
@@ -25,6 +25,10 @@ export class AppComponent implements OnInit {
     public disabledTest: boolean = false;
     public toggleTest: boolean = false;
     public visibleTest: boolean = true;
+
+    public contextMenuTargetElement: HTMLElement = null;
+    public menuEvent: MouseEvent;
+    public menuTriggerType: string = "contextmenu";
 
     @ViewChild("coffeeIconTemplate") coffeeIconTemplate: TemplateRef<any>;
     @ViewChild("addIconTemplate") addIconTemplate: TemplateRef<any>;
@@ -117,7 +121,18 @@ export class AppComponent implements OnInit {
     ];
 
     ngOnInit(): void {
-        this.updateMenutext();
+        this.updateMenuText();
+    }
+
+    public changeBgColor(): void {
+        this.createRandomColor();
+        (document.querySelector("body") as HTMLBodyElement).style.backgroundColor = this.bgColor;
+    }
+
+    public openDynamicContextMenu(event: MouseEvent): void {
+        event.preventDefault();
+        this.contextMenuTargetElement = (event.target as HTMLElement);
+        this.menuEvent = event;
     }
 
     public onMenuChange(event: IContextMenuData): void {
@@ -136,7 +151,7 @@ export class AppComponent implements OnInit {
         console.log("Click went through disabled.");
     }
 
-    public updateMenutext(): void {
+    public updateMenuText(): void {
         window.setInterval(() => {
             this.menuText++;
             // this.disabledTest = !this.disabledTest;
@@ -149,5 +164,12 @@ export class AppComponent implements OnInit {
 
     public selectTestMethod(item: IMenuItem): void {
         console.log("MENUITEM: ", item);
+    }
+
+    private createRandomColor(): void {
+        this.bgColor = "#000000".replace(/0/g, () => {
+            // tslint:disable-next-line:no-bitwise
+            return (~~(Math.random() * 16)).toString(16);
+        });
     }
 }

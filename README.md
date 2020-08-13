@@ -70,6 +70,7 @@ yui-contextmenu-content.export-menu {
 ```typescript
 disabled: boolean                   // Disable a menu item.
 divider: boolean                    // Set a menu item as divider. When set to true, all other options are ignored.
+event: MouseEvent                   // Set the triggering event. Only used when the target changes dynamically.
 icon: string;                       // Icon class for menu item. For example, you can pass a font icon class such as 'fa fa-plus'. Ignored when iconTemplate option is set.
 iconTemplate: TemplateRef<any>;     // Pass a template reference to show as menu item icon.
 image: string;                      // Image url for menu item icon. Ignored when iconTemplate option is set.
@@ -79,6 +80,40 @@ textTemplate: TemplateRef<any>;     // Pass a template reference to show as menu
 toggleable: boolean;                // Pass true if you want to make the menu item toggleable.
 toggled: boolean;                   // Set toggle status of menu item. This is a two-way binding. [(toggled)]
 visible: boolean;                   // Set false to hide a menu item.
+```
+
+## Dynamic HTML Targets
+
+If you want to change the target dynamically, you need to take a few extra steps.
+
+* Create the following public instance fields.
+```typescript
+public menuEvent: MouseEvent;
+public menuTarget: HTMLElement;
+```
+
+* Create the yui-contextmenu component. For example;
+```html
+<yui-contextmenu [target]="menuTarget" [trigger]="menuEvent?.type" [event]="menuEvent">
+    <yui-menu-item text="Menu Item I"></yui-menu-item>
+    <yui-menu-item text="Menu Item II"></yui-menu-item>
+</yui-contextmenu>
+```
+
+* Create a method that will set the values of **menuTarget** and **menuEvent**
+
+```typescript
+public createMenu(event: MouseEvent): void {
+    this.menuEvent = event;
+    this.menuTarget = (event.target as HTMLElement);
+}
+```
+* Finally, call this createMenu method from a suitable context.
+
+```html
+<div (contextmenu)="createMenu($event)"></div>
+<p (contextmenu)="createMenu($event)"></p>
+<button (click)="createMenu($event)"></button>
 ```
 
 # License
