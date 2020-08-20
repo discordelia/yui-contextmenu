@@ -1,6 +1,6 @@
 import {Component, OnInit, TemplateRef, ViewChild} from "@angular/core";
 import {faCoffee, faEye, faPlus, faTrash, faEdit, faChevronDown} from "@fortawesome/free-solid-svg-icons";
-import {IMenuItem, IContextMenuData} from "yui-contextmenu";
+import {IMenuItem, IContextMenuData, IMenuChangeEvent, IMenuOpenEvent, IMenuCloseEvent} from "yui-contextmenu";
 
 
 @Component({
@@ -135,15 +135,15 @@ export class AppComponent implements OnInit {
         this.menuEvent = event;
     }
 
-    public onMenuChange(event: IContextMenuData): void {
+    public onMenuChange(event: IMenuChangeEvent): void {
         console.log("MENU CHANGED: ", event);
     }
 
-    public onMenuClose(event: IContextMenuData): void {
+    public onMenuClose(event: IMenuOpenEvent): void {
         console.log("MENU CLOSED: ", event);
     }
 
-    public onMenuOpen(event: IContextMenuData): void {
+    public onMenuOpen(event: IMenuCloseEvent): void {
         console.log("MENU OPENED: ", event);
     }
 

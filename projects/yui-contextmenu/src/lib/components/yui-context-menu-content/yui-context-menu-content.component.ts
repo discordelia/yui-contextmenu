@@ -93,6 +93,10 @@ export class YuiContextMenuContentComponent implements AfterViewInit, OnDestroy 
         if (!this.keyManager.activeItem
             && !this.menuItemComponents.toArray().every(item => item.menuItem.disabled)) {
             this.keyManager.onKeydown(event);
+            this.changeCallback({
+                item: this.menuItems.find(mi => !mi.divider && !mi.disabled),
+                depth: this.depth
+            });
             return;
         }
         switch (event.key) {
