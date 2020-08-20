@@ -120,7 +120,7 @@ export class YuiContextMenuComponent implements OnInit, AfterViewInit, AfterCont
     private close(): void {
         this.contextMenuService.closeMenu(this.menuId);
         this.visible = false;
-        this.menuOpen.emit({
+        this.menuClose.emit({
             contextMenuRef: this.menuData.contextMenuRef,
             depth: this.menuData.depth,
             menuId: this.menuData.menuId,
