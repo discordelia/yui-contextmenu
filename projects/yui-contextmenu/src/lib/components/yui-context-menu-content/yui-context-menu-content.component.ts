@@ -65,7 +65,6 @@ export class YuiContextMenuContentComponent implements AfterViewInit, OnDestroy 
                 this.previousMenuItem.focused = false;
                 this.contextMenuService.removeMenuViaDepth(this.depth, this.rootMenuId);
                 this.keyManager.setActiveItem(null);
-                // this.changeCallback({item: event.menuItem, depth: this.depth});
             }
             return;
         }
@@ -74,21 +73,16 @@ export class YuiContextMenuContentComponent implements AfterViewInit, OnDestroy 
             this.previousMenuItem = event.menuItem;
             this.previousMenuItem.focused = !this.previousMenuItem.disabled;
             this.keyManager.setActiveItem(this.menuItemComponents.find(i => i.menuItem === this.previousMenuItem));
-            if (this.previousMenuItem?.menuItems?.length > 0) {
-                // this.changeCallback({item: event.menuItem, depth: this.depth});
-            }
             return;
         }
         if (this.previousMenuItem.menuItems?.length > 0) {
             this.contextMenuService.removeMenuViaDepth(this.depth, this.rootMenuId);
-            // this.changeCallback({ item: event.menuItem, depth: this.depth });
         }
         if (this.previousMenuItem !== event.menuItem) {
             this.previousMenuItem.focused = false;
         }
         this.previousMenuItem = event.menuItem;
         this.keyManager.setActiveItem(this.menuItemComponents.find(i => i.menuItem === this.previousMenuItem));
-        // this.changeCallback({item: event.menuItem, depth: this.depth});
     }
 
     @HostListener("window:keydown", ["$event"])
@@ -99,7 +93,6 @@ export class YuiContextMenuContentComponent implements AfterViewInit, OnDestroy 
         if (!this.keyManager.activeItem
             && !this.menuItemComponents.toArray().every(item => item.menuItem.disabled)) {
             this.keyManager.onKeydown(event);
-            this.changeCallback({item: this.keyManager.activeItem.menuItem, depth: this.depth});
             return;
         }
         switch (event.key) {
