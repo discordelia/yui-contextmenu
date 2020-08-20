@@ -36,7 +36,7 @@
 <span class="divider" *ngIf="menuItem.divider" (click)="onMenuItemSelected($event, menuItem)"></span>
 
 <ng-template #submenuTemplate>
-    <yui-contextmenu-content [menuItems]="menuItem?.menuItems" [depth]="depth+1" *ngIf="menuItem?.menuItems?.length>0"
+    <yui-contextmenu-content [menuItems]="menuItem?.menuItems" [parentMenuItem]="menuItem" [depth]="depth+1" *ngIf="menuItem?.menuItems?.length>0"
                              [menuClass]="menuClass" [attr.class]="menuClass" [attr.tabindex]="0"
                              [rootMenuId]="rootMenuId" [changeCallback]="changeCallback"></yui-contextmenu-content>
 </ng-template>

@@ -15,6 +15,9 @@ import {YuiMenuItemComponent} from "../yui-menu-item/yui-menu-item.component";
 import {Subscription} from "rxjs";
 import {IExtendedMenuItem} from "../../interfaces/IExtendedMenuItem";
 import {IContextMenuData} from "../../interfaces/IContextMenuData";
+import {IMenuChangeEvent} from "../../interfaces/IMenuChangeEvent";
+import {IMenuCloseEvent} from "../../interfaces/IMenuCloseEvent";
+import {IMenuOpenEvent} from "../../interfaces/IMenuOpenEvent";
 
 @Component({
     selector: "yui-contextmenu",
@@ -30,7 +33,7 @@ export class YuiContextMenuComponent implements OnInit, AfterViewInit, AfterCont
 
     public readonly menuId: number = (ContextMenuService.menuIdentifier++);
     public depth: number = 0;
-    public menuChangeEvent: () => void = null;
+    public menuChangeEvent: (menuEventData: IMenuChangeEvent) => void = null;
 
     @ContentChildren(YuiMenuItemComponent) subMenuItems: QueryList<YuiMenuItemComponent>;
     @Input() event: MouseEvent;
@@ -39,9 +42,9 @@ export class YuiContextMenuComponent implements OnInit, AfterViewInit, AfterCont
     @Input() precise: boolean = true;
     @Input() target: IPopupTarget;
     @Input() trigger: string = "contextmenu";
-    @Output() menuChange: EventEmitter<IContextMenuData> = new EventEmitter<IContextMenuData>();
-    @Output() menuClose: EventEmitter<IContextMenuData> = new EventEmitter<IContextMenuData>();
-    @Output() menuOpen: EventEmitter<IContextMenuData> = new EventEmitter<IContextMenuData>();
+    @Output() menuChange: EventEmitter<IMenuChangeEvent> = new EventEmitter<IMenuChangeEvent>();
+    @Output() menuClose: EventEmitter<IMenuCloseEvent> = new EventEmitter<IMenuCloseEvent>();
+    @Output() menuOpen: EventEmitter<IMenuOpenEvent> = new EventEmitter<IMenuOpenEvent>();
     @ViewChild(TemplateRef) contextMenuTemplate: TemplateRef<any>;
 
     public constructor(
@@ -54,7 +57,7 @@ export class YuiContextMenuComponent implements OnInit, AfterViewInit, AfterCont
         if (this.menuItems?.length > 0) {
             this.initializeMenuItems(this.menuItems);
         }
-        this.menuChangeEvent = () => this.menuChange.emit(this.menuData);
+        this.menuChangeEvent = (menuEventData: IMenuChangeEvent) => this.menuChange.emit(menuEventData);
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -117,7 +120,12 @@ export class YuiContextMenuComponent implements OnInit, AfterViewInit, AfterCont
     private close(): void {
         this.contextMenuService.closeMenu(this.menuId);
         this.visible = false;
-        this.menuClose.emit(this.menuData);
+        this.menuOpen.emit({
+            contextMenuRef: this.menuData.contextMenuRef,
+            depth: this.menuData.depth,
+            menuId: this.menuData.menuId,
+            rootMenuId: this.menuData.rootMenuId
+        });
     }
 
     private createMenuItems(): void {
@@ -137,7 +145,12 @@ export class YuiContextMenuComponent implements OnInit, AfterViewInit, AfterCont
 
             this.menuData = {contextMenuRef, depth: this.depth, menuId: this.menuId, rootMenuId: null, isSubmenu: false};
             this.contextMenuService.addActiveMenu(this.menuData);
-            this.menuOpen.emit(this.menuData);
+            this.menuOpen.emit({
+                contextMenuRef,
+                depth: this.depth,
+                menuId: this.menuId,
+                rootMenuId: null
+            });
             this.visible = true;
         });
     }

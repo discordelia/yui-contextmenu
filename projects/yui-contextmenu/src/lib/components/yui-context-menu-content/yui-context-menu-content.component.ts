@@ -1,11 +1,12 @@
-import { Component, Input, HostBinding, HostListener, ElementRef, ViewChildren, QueryList, AfterViewInit, OnDestroy } from "@angular/core";
-import { ActiveDescendantKeyManager } from "@angular/cdk/a11y";
-import { ContextMenuService } from "../../services/context-menu.service";
-import { IMenuItemContextMenuRefPair } from "../../interfaces/IMenuItemContextMenuRefPair";
-import { IExtendedMenuItem } from "../../interfaces/IExtendedMenuItem";
-import { YuiContextMenuItemComponent } from "../yui-context-menu-item/yui-context-menu-item.component";
-import { Subscription } from "rxjs";
-import { KeyStringValue } from "../../enums/KeyStringValue";
+import {Component, Input, HostBinding, HostListener, ElementRef, ViewChildren, QueryList, AfterViewInit, OnDestroy} from "@angular/core";
+import {ActiveDescendantKeyManager} from "@angular/cdk/a11y";
+import {ContextMenuService} from "../../services/context-menu.service";
+import {IMenuItemContextMenuRefPair} from "../../interfaces/IMenuItemContextMenuRefPair";
+import {IExtendedMenuItem} from "../../interfaces/IExtendedMenuItem";
+import {YuiContextMenuItemComponent} from "../yui-context-menu-item/yui-context-menu-item.component";
+import {Subscription} from "rxjs";
+import {KeyStringValue} from "../../enums/KeyStringValue";
+import {IMenuChangeEvent} from "../../interfaces/IMenuChangeEvent";
 
 @Component({
     selector: "yui-contextmenu-content",
@@ -17,10 +18,11 @@ export class YuiContextMenuContentComponent implements AfterViewInit, OnDestroy 
     private keyManager: ActiveDescendantKeyManager<YuiContextMenuItemComponent>;
     private menuCloseSubscription$: Subscription;
     private previousMenuItem: IExtendedMenuItem = null;
-    @Input() changeCallback: () => void;
+    @Input() changeCallback: (data: IMenuChangeEvent) => void;
     @Input() depth: number = 0;
     @Input() menuClass: string;
     @Input() menuItems: IExtendedMenuItem[] = [];
+    @Input() parentMenuItem: IExtendedMenuItem = null;
     @Input() rootMenuId: number;
     @ViewChildren(YuiContextMenuItemComponent) menuItemComponents: QueryList<YuiContextMenuItemComponent>;
 
@@ -31,7 +33,7 @@ export class YuiContextMenuContentComponent implements AfterViewInit, OnDestroy 
     }
 
     ngAfterViewInit(): void {
-        this.keyManager = new ActiveDescendantKeyManager(this.menuItemComponents).withWrap().skipPredicate(item => item.menuItem?.disabled);
+        this.keyManager = new ActiveDescendantKeyManager(this.menuItemComponents).withWrap().skipPredicate(item => item.menuItem?.disabled || item.menuItem?.divider);
         window.setTimeout(() => {
             ((this.elementRef.nativeElement as HTMLElement).querySelector("ul:first-child") as HTMLElement).focus();
         });
@@ -63,7 +65,7 @@ export class YuiContextMenuContentComponent implements AfterViewInit, OnDestroy 
                 this.previousMenuItem.focused = false;
                 this.contextMenuService.removeMenuViaDepth(this.depth, this.rootMenuId);
                 this.keyManager.setActiveItem(null);
-                this.changeCallback();
+                // this.changeCallback({item: event.menuItem, depth: this.depth});
             }
             return;
         }
@@ -73,19 +75,20 @@ export class YuiContextMenuContentComponent implements AfterViewInit, OnDestroy 
             this.previousMenuItem.focused = !this.previousMenuItem.disabled;
             this.keyManager.setActiveItem(this.menuItemComponents.find(i => i.menuItem === this.previousMenuItem));
             if (this.previousMenuItem?.menuItems?.length > 0) {
-                this.changeCallback();
+                // this.changeCallback({item: event.menuItem, depth: this.depth});
             }
             return;
         }
         if (this.previousMenuItem.menuItems?.length > 0) {
             this.contextMenuService.removeMenuViaDepth(this.depth, this.rootMenuId);
-            this.changeCallback();
+            // this.changeCallback({ item: event.menuItem, depth: this.depth });
         }
         if (this.previousMenuItem !== event.menuItem) {
             this.previousMenuItem.focused = false;
         }
         this.previousMenuItem = event.menuItem;
         this.keyManager.setActiveItem(this.menuItemComponents.find(i => i.menuItem === this.previousMenuItem));
+        // this.changeCallback({item: event.menuItem, depth: this.depth});
     }
 
     @HostListener("window:keydown", ["$event"])
@@ -96,6 +99,7 @@ export class YuiContextMenuContentComponent implements AfterViewInit, OnDestroy 
         if (!this.keyManager.activeItem
             && !this.menuItemComponents.toArray().every(item => item.menuItem.disabled)) {
             this.keyManager.onKeydown(event);
+            this.changeCallback({item: this.keyManager.activeItem.menuItem, depth: this.depth});
             return;
         }
         switch (event.key) {
@@ -107,15 +111,28 @@ export class YuiContextMenuContentComponent implements AfterViewInit, OnDestroy 
                 if (!(this.keyManager.activeItem.menuItem.menuItems?.length > 0)) {
                     return;
                 }
+                this.parentMenuItem = this.keyManager.activeItem.menuItem;
                 this.keyManager.activeItem.createSubmenu(
                     this.keyManager.activeItem.hostElementRef.nativeElement as Element,
                     this.keyManager.activeItem.menuItem, true);
+                this.changeCallback({
+                    item: this.keyManager.activeItem.menuItem.menuItems?.find(mi => !mi.disabled && !mi.divider) ?? null,
+                    depth: this.depth + 1
+                });
                 break;
             case KeyStringValue.LeftArrow:
                 if (this.depth > 1) {
                     this.contextMenuService.removeMenuViaDepth(this.depth - 1, this.rootMenuId);
-                    this.changeCallback();
+                    this.changeCallback({
+                        item: this.parentMenuItem,
+                        depth: this.depth - 1
+                    });
                 }
+                break;
+            case KeyStringValue.DownArrow:
+            case KeyStringValue.UpArrow:
+                this.keyManager.onKeydown(event);
+                this.changeCallback({item: this.keyManager.activeItem.menuItem, depth: this.depth});
                 break;
             default:
                 this.keyManager.onKeydown(event);

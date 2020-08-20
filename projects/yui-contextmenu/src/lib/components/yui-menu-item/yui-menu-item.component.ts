@@ -1,6 +1,7 @@
 import {Component, OnInit, ContentChildren, QueryList, Input, Output, EventEmitter, TemplateRef} from "@angular/core";
 import {IMenuItem} from "../../interfaces/IMenuItem";
 import {IExtendedMenuItem} from "../../interfaces/IExtendedMenuItem";
+import {ContextMenuService} from "../../services/context-menu.service";
 
 @Component({
     selector: "yui-menu-item",
@@ -9,7 +10,10 @@ import {IExtendedMenuItem} from "../../interfaces/IExtendedMenuItem";
 })
 export class YuiMenuItemComponent implements OnInit {
 
-    private menuItem: IExtendedMenuItem = {};
+    private menuItem: IExtendedMenuItem = {
+        parentMenuItemId: null,
+        menuItemId: ContextMenuService.menuItemIdentifier++
+    };
     @ContentChildren(YuiMenuItemComponent) submenuItems: QueryList<YuiMenuItemComponent>;
 
     @Input() set disabled(disabled: boolean) {
@@ -69,10 +73,11 @@ export class YuiMenuItemComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    public getMenuItemData(): IExtendedMenuItem {
+    public getMenuItemData(parentMenuItem?: IExtendedMenuItem): IExtendedMenuItem {
         this.menuItem.selectEmitter = this.select;
         this.menuItem.toggleEmitter = this.toggledChange;
-        this.menuItem.menuItems = this.submenuItems.map(i => i.getMenuItemData());
+        this.menuItem.parentMenuItemId = parentMenuItem?.menuItemId ?? null;
+        this.menuItem.menuItems = this.submenuItems.map(i => i.getMenuItemData(this.menuItem));
         return this.menuItem;
     }
 

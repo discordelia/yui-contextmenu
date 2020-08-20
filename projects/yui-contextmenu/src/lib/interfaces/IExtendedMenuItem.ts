@@ -5,6 +5,8 @@ export const TOGGLE_ICON = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIi
 
 export interface IExtendedMenuItem extends IMenuItem {
     focused?: boolean;
+    menuItemId: number;
+    parentMenuItemId: number
     selectEmitter?: EventEmitter<IMenuItem>;
     toggleEmitter?: EventEmitter<boolean>;
 }

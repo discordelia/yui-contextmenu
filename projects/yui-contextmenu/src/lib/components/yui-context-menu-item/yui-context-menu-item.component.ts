@@ -11,14 +11,15 @@ import {
     HostListener,
     ElementRef
 } from "@angular/core";
-import { ContextMenuService } from "../../services/context-menu.service";
-import { IMenuItemContextMenuRefPair } from "../../interfaces/IMenuItemContextMenuRefPair";
-import { IContextMenuRef } from "../../interfaces/IContextMenuRef";
-import { TemplateType } from "../../interfaces/TemplateType";
-import { IExtendedMenuItem, TOGGLE_ICON } from "../../interfaces/IExtendedMenuItem";
-import { Highlightable, FocusableOption } from "@angular/cdk/a11y";
-import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
-import { IContextMenuData } from "../../interfaces/IContextMenuData";
+import {ContextMenuService} from "../../services/context-menu.service";
+import {IMenuItemContextMenuRefPair} from "../../interfaces/IMenuItemContextMenuRefPair";
+import {IContextMenuRef} from "../../interfaces/IContextMenuRef";
+import {TemplateType} from "../../interfaces/TemplateType";
+import {IExtendedMenuItem, TOGGLE_ICON} from "../../interfaces/IExtendedMenuItem";
+import {Highlightable, FocusableOption} from "@angular/cdk/a11y";
+import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import {IContextMenuData} from "../../interfaces/IContextMenuData";
+import {IMenuChangeEvent} from "../../interfaces/IMenuChangeEvent";
 
 
 @Component({
@@ -31,7 +32,7 @@ export class YuiContextMenuItemComponent implements OnInit, OnDestroy, Highlight
     private menuData: IContextMenuData = null;
     private submenuRef: IContextMenuRef = null;
 
-    @Input() changeCallback: () => void;
+    @Input() changeCallback: (data: IMenuChangeEvent) => void;
     @Input() depth: number;
     @Input() menuClass: string;
     @Input() menuItem: IExtendedMenuItem;
@@ -72,7 +73,6 @@ export class YuiContextMenuItemComponent implements OnInit, OnDestroy, Highlight
                 isSubmenu: true
             };
             this.contextMenuService.addActiveMenu(this.menuData);
-            this.changeCallback();
         }
     }
 
@@ -118,6 +118,10 @@ export class YuiContextMenuItemComponent implements OnInit, OnDestroy, Highlight
             return;
         }
         this.createSubmenu(event.target as Element, item);
+        this.changeCallback({
+            depth: this.depth,
+            item
+        });
     }
 
     public setActiveStyles(): void {

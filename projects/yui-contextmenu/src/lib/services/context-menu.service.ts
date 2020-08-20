@@ -9,6 +9,7 @@ import { YuiPopupService } from "@discordelia/popup";
 @Injectable()
 export class ContextMenuService {
     public static menuIdentifier: number = 0x404;
+    public static menuItemIdentifier: number = 0x99;
     public static readonly subMenuPositions: ConnectedPosition[] = [
         {
             originX: "end", originY: "top",
@@ -43,10 +44,10 @@ export class ContextMenuService {
         const menuList = this.activeMenuMap.get(menuData.rootMenuId ?? menuData.menuId);
         if (menuList?.length > 0) {
             menuList.push(menuData);
-            if (menuData.isSubmenu) {
-                const rootMenu = menuList.find(m => !m.isSubmenu);
-                rootMenu.hasOpenSubmenu = true;
-            }
+            // if (menuData.isSubmenu) {
+            //     const rootMenu = menuList.find(m => !m.isSubmenu);
+            //     rootMenu.hasOpenSubmenu = true;
+            // }
         } else {
             this.activeMenuMap.set(menuData.menuId, [menuData]);
         }
@@ -83,11 +84,11 @@ export class ContextMenuService {
         if (menuList?.length > 0) {
             menuList.filter(m => m.depth >= startDepth).forEach(m => m.contextMenuRef?.popupRef?.close());
             this.activeMenuMap.set(rootMenuId, menuList.filter(m => m.depth < startDepth));
-            const rootMenuData = menuList.find(m => !m.isSubmenu);
-            if (rootMenuData) {
-                rootMenuData.hasOpenSubmenu = this.activeMenuMap.get(rootMenuId)
-                    ?.some(m => !!m.rootMenuId && m.rootMenuId === rootMenuId);
-            }
+            // const rootMenuData = menuList.find(m => !m.isSubmenu);
+            // if (rootMenuData) {
+            //     rootMenuData.hasOpenSubmenu = this.activeMenuMap.get(rootMenuId)
+            //         ?.some(m => !!m.rootMenuId && m.rootMenuId === rootMenuId);
+            // }
             this.CurrentDepth = startDepth;
             this.menuCloseSubject$.next(startDepth);
         }
