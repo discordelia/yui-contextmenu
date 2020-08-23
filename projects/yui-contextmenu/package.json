@@ -25,7 +25,9 @@
         "@angular/common": "^9.1.7",
         "@angular/core": "^9.1.7",
         "@angular/cdk": "^9.2.4",
-        "@discordelia/popup": "^0.0.2",
-        "tslib": "^1.10.0"
-    }
+        "@discordelia/popup": "^0.0.2"
+},
+  "dependencies": {
+    "tslib": "^2.0.0"
+  }
 }
