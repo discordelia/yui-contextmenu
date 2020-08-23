@@ -27,7 +27,7 @@ npm i @angular/cdk @discordelia/popup @discordelia/contextmenu
 @import "~@angular/cdk/overlay-prebuilt.css";
 ```
 
-* Import **YuiContextmenuModule** in your app.module.ts file (or another module where you need it.)
+* Import **ContextmenuModule** in your app.module.ts file (or another module where you need it.)
 
 # Usage
 
