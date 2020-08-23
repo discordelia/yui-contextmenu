@@ -1,6 +1,6 @@
 {
     "name": "@discordelia/contextmenu",
-    "version": "0.3.3",
+    "version": "1.0.0",
     "description": "A simple contextmenu component for Angular v9+.",
     "author": {
         "name": "discordelia"
@@ -21,13 +21,8 @@
     "repository": {
         "url": "https://github.com/discordelia/yui-contextmenu"
     },
-    "peerDependencies": {
-        "@angular/common": "^9.1.7",
-        "@angular/core": "^9.1.7",
-        "@angular/cdk": "^9.2.4",
-        "@discordelia/popup": "^0.0.2"
-},
-  "dependencies": {
-    "tslib": "^2.0.0"
-  }
+    "peerDependencies": {},
+    "dependencies": {
+        "tslib": "^2.0.0"
+    }
 }

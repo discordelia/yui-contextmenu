@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { YuiPopupModule } from "@discordelia/popup";
+import { PopupModule } from "@discordelia/popup";
 import { CommonModule } from "@angular/common";
 import { OverlayModule } from "@angular/cdk/overlay";
 import { ContextMenuComponent } from "./components/context-menu/context-menu.component";
@@ -18,7 +18,7 @@ import { ContextMenuService } from "./services/context-menu.service";
     imports: [
         CommonModule,
         OverlayModule,
-        YuiPopupModule
+        PopupModule
     ],
     exports: [
         ContextMenuComponent,
