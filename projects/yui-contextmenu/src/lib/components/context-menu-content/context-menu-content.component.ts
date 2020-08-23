@@ -3,19 +3,19 @@ import {ActiveDescendantKeyManager} from "@angular/cdk/a11y";
 import {ContextMenuService} from "../../services/context-menu.service";
 import {IMenuItemContextMenuRefPair} from "../../interfaces/IMenuItemContextMenuRefPair";
 import {IExtendedMenuItem} from "../../interfaces/IExtendedMenuItem";
-import {YuiContextMenuItemComponent} from "../yui-context-menu-item/yui-context-menu-item.component";
+import {ContextMenuItemComponent} from "../context-menu-item/context-menu-item.component";
 import {Subscription} from "rxjs";
 import {KeyStringValue} from "../../enums/KeyStringValue";
 import {IMenuChangeEvent} from "../../interfaces/IMenuChangeEvent";
 
 @Component({
     selector: "yui-contextmenu-content",
-    templateUrl: "./yui-context-menu-content.component.html",
-    styleUrls: ["./yui-context-menu-content.component.scss"]
+    templateUrl: "./context-menu-content.component.html",
+    styleUrls: ["./context-menu-content.component.scss"]
 })
-export class YuiContextMenuContentComponent implements AfterViewInit, OnDestroy {
+export class ContextMenuContentComponent implements AfterViewInit, OnDestroy {
 
-    private keyManager: ActiveDescendantKeyManager<YuiContextMenuItemComponent>;
+    private keyManager: ActiveDescendantKeyManager<ContextMenuItemComponent>;
     private menuCloseSubscription$: Subscription;
     private previousMenuItem: IExtendedMenuItem = null;
     @Input() changeCallback: (data: IMenuChangeEvent) => void;
@@ -24,7 +24,7 @@ export class YuiContextMenuContentComponent implements AfterViewInit, OnDestroy 
     @Input() menuItems: IExtendedMenuItem[] = [];
     @Input() parentMenuItem: IExtendedMenuItem = null;
     @Input() rootMenuId: number;
-    @ViewChildren(YuiContextMenuItemComponent) menuItemComponents: QueryList<YuiContextMenuItemComponent>;
+    @ViewChildren(ContextMenuItemComponent) menuItemComponents: QueryList<ContextMenuItemComponent>;
 
     public constructor(
         private contextMenuService: ContextMenuService,

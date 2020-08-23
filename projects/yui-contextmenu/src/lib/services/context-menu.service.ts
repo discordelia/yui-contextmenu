@@ -4,7 +4,7 @@ import { IContextMenuRef } from "../interfaces/IContextMenuRef";
 import { IContextMenuTarget } from "../interfaces/IContextMenuTarget";
 import { IContextMenuData } from "../interfaces/IContextMenuData";
 import { Subscription, Subject } from "rxjs";
-import { YuiPopupService } from "@discordelia/popup";
+import { PopupService } from "@discordelia/popup";
 
 @Injectable()
 export class ContextMenuService {
@@ -36,7 +36,7 @@ export class ContextMenuService {
     private submenuCreatedViaKeyboard: boolean = false;
 
     public constructor(
-        private popupService: YuiPopupService
+        private popupService: PopupService
     ) {
     }
 

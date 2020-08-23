@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { YuiContextMenuItemComponent } from './yui-context-menu-item.component';
+import { MenuItemComponent } from './menu-item.component';
 
-describe('ContextMenuItemComponent', () => {
-  let component: YuiContextMenuItemComponent;
-  let fixture: ComponentFixture<YuiContextMenuItemComponent>;
+describe('MenuItemComponent', () => {
+  let component: MenuItemComponent;
+  let fixture: ComponentFixture<MenuItemComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ YuiContextMenuItemComponent ]
+      declarations: [ MenuItemComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(YuiContextMenuItemComponent);
+    fixture = TestBed.createComponent(MenuItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -5,16 +5,16 @@ import {ContextMenuService} from "../../services/context-menu.service";
 
 @Component({
     selector: "yui-menu-item",
-    templateUrl: "./yui-menu-item.component.html",
-    styleUrls: ["./yui-menu-item.component.scss"]
+    templateUrl: "./menu-item.component.html",
+    styleUrls: ["./menu-item.component.scss"]
 })
-export class YuiMenuItemComponent implements OnInit {
+export class MenuItemComponent implements OnInit {
 
     private menuItem: IExtendedMenuItem = {
         parentMenuItemId: null,
         menuItemId: ContextMenuService.menuItemIdentifier++
     };
-    @ContentChildren(YuiMenuItemComponent) submenuItems: QueryList<YuiMenuItemComponent>;
+    @ContentChildren(MenuItemComponent) submenuItems: QueryList<MenuItemComponent>;
 
     @Input() set disabled(disabled: boolean) {
         this.menuItem.disabled = disabled;

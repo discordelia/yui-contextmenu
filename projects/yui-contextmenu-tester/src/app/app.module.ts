@@ -1,9 +1,9 @@
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import {BrowserModule} from "@angular/platform-browser";
+import {NgModule} from "@angular/core";
 
-import { AppComponent } from "./app.component";
-import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { YuiContextMenuModule } from "yui-contextmenu";
+import {AppComponent} from "./app.component";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {ContextMenuModule} from "yui-contextmenu";
 
 @NgModule({
     declarations: [
@@ -11,7 +11,7 @@ import { YuiContextMenuModule } from "yui-contextmenu";
     ],
     imports: [
         BrowserModule,
-        YuiContextMenuModule,
+        ContextMenuModule,
         FontAwesomeModule
     ],
     providers: [],

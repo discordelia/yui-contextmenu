@@ -11,7 +11,7 @@ import {
 } from "@angular/core";
 import {ContextMenuService} from "../../services/context-menu.service";
 import {ICoordinate, IPopupTarget} from "@discordelia/popup";
-import {YuiMenuItemComponent} from "../yui-menu-item/yui-menu-item.component";
+import {MenuItemComponent} from "../menu-item/menu-item.component";
 import {Subscription} from "rxjs";
 import {IExtendedMenuItem} from "../../interfaces/IExtendedMenuItem";
 import {IContextMenuData} from "../../interfaces/IContextMenuData";
@@ -21,10 +21,10 @@ import {IMenuOpenEvent} from "../../interfaces/IMenuOpenEvent";
 
 @Component({
     selector: "yui-contextmenu",
-    templateUrl: "./yui-context-menu.component.html",
-    styleUrls: ["./yui-context-menu.component.scss"]
+    templateUrl: "./context-menu.component.html",
+    styleUrls: ["./context-menu.component.scss"]
 })
-export class YuiContextMenuComponent implements OnInit, AfterViewInit, AfterContentInit, OnDestroy, OnChanges {
+export class ContextMenuComponent implements OnInit, AfterViewInit, AfterContentInit, OnDestroy, OnChanges {
 
     private menuData: IContextMenuData = null;
     private subMenuItemsSubscription$: Subscription;
@@ -35,7 +35,7 @@ export class YuiContextMenuComponent implements OnInit, AfterViewInit, AfterCont
     public depth: number = 0;
     public menuChangeEvent: (menuEventData: IMenuChangeEvent) => void = null;
 
-    @ContentChildren(YuiMenuItemComponent) subMenuItems: QueryList<YuiMenuItemComponent>;
+    @ContentChildren(MenuItemComponent) subMenuItems: QueryList<MenuItemComponent>;
     @Input() event: MouseEvent;
     @Input() menuClass: string;
     @Input() menuItems: IExtendedMenuItem[] = [];
