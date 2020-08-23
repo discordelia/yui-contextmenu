@@ -14,7 +14,7 @@ import {
 import {ContextMenuService} from "../../services/context-menu.service";
 import {IMenuItemContextMenuRefPair} from "../../interfaces/IMenuItemContextMenuRefPair";
 import {IContextMenuRef} from "../../interfaces/IContextMenuRef";
-import {TemplateType} from "../../interfaces/TemplateType";
+import {TemplateType} from "../../types/TemplateType";
 import {IExtendedMenuItem, TOGGLE_ICON} from "../../interfaces/IExtendedMenuItem";
 import {Highlightable, FocusableOption} from "@angular/cdk/a11y";
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
@@ -24,10 +24,10 @@ import {IMenuChangeEvent} from "../../interfaces/IMenuChangeEvent";
 
 @Component({
     selector: "yui-contextmenu-item",
-    templateUrl: "./yui-context-menu-item.component.html",
-    styleUrls: ["./yui-context-menu-item.component.scss"]
+    templateUrl: "./context-menu-item.component.html",
+    styleUrls: ["./context-menu-item.component.scss"]
 })
-export class YuiContextMenuItemComponent implements OnInit, OnDestroy, Highlightable, FocusableOption {
+export class ContextMenuItemComponent implements OnInit, OnDestroy, Highlightable, FocusableOption {
 
     private menuData: IContextMenuData = null;
     private submenuRef: IContextMenuRef = null;

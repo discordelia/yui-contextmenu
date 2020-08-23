@@ -67,6 +67,11 @@
                         "main": "projects/yui-contextmenu-tester/src/main.ts",
                         "polyfills": "projects/yui-contextmenu-tester/src/polyfills.ts",
                         "tsConfig": "projects/yui-contextmenu-tester/tsconfig.app.json",
+                        "sourceMap": {
+                            "styles": true,
+                            "scripts": true,
+                            "vendor": true
+                        },
                         "aot": true,
                         "assets": [
                             "projects/yui-contextmenu-tester/src/favicon.ico",

@@ -1,4 +1,4 @@
-import { TemplateType } from "./TemplateType";
+import { TemplateType } from "../types/TemplateType";
 
 export interface IMenuItem {
     disabled?: boolean;
