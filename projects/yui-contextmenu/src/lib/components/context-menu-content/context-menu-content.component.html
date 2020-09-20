@@ -5,6 +5,7 @@
             <yui-contextmenu-item [menuItem]="menuItem" [depth]="depth" [rootMenuId]="rootMenuId"
                                   [menuClass]="menuClass"
                                   (menuHover)="onMenuItemHovered($event)" [changeCallback]="changeCallback"
+                                  [closeCallback]="closeCallback"
                                   [attr.tabindex]="0"
                                   [attr.class]="menuClass"></yui-contextmenu-item>
         </li>

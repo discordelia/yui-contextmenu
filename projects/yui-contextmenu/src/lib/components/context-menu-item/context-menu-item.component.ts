@@ -7,8 +7,6 @@ import {
     TemplateRef,
     ViewChild,
     OnDestroy,
-    HostBinding,
-    HostListener,
     ElementRef
 } from "@angular/core";
 import {ContextMenuService} from "../../services/context-menu.service";
@@ -33,6 +31,7 @@ export class ContextMenuItemComponent implements OnInit, OnDestroy, Highlightabl
     private submenuRef: IContextMenuRef = null;
 
     @Input() changeCallback: (data: IMenuChangeEvent) => void;
+    @Input() closeCallback: () => void;
     @Input() depth: number;
     @Input() menuClass: string;
     @Input() menuItem: IExtendedMenuItem;
@@ -104,7 +103,7 @@ export class ContextMenuItemComponent implements OnInit, OnDestroy, Highlightabl
             item.toggleEmitter?.emit(item.toggled);
             item.toggle?.(item);
         }
-        item.select?.(item);
+        item.menuSelect?.(item);
         item.selectEmitter?.emit(item);
     }
 

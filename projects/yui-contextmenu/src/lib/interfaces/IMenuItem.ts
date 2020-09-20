@@ -7,7 +7,7 @@ export interface IMenuItem {
     iconTemplate?: TemplateType;
     image?: string;
     menuItems?: IMenuItem[];
-    select?: (item?: IMenuItem) => void;
+    menuSelect?: (item?: IMenuItem) => void;
     subtext?: string;
     subtextTemplate?: TemplateType;
     text?: string;

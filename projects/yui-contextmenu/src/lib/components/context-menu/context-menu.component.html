@@ -1,5 +1,6 @@
 <ng-template>
     <yui-contextmenu-content [menuItems]="menuItems" [depth]="depth+1" [rootMenuId]="menuId"
-                             [changeCallback]="menuChangeEvent" [menuClass]="MenuClass" [attr.class]="MenuClass"
+                             [changeCallback]="menuChangeEvent" [closeCallback]="menuCloseEvent" [menuClass]="MenuClass"
+                             [attr.class]="MenuClass"
                              [attr.tabindex]="0"></yui-contextmenu-content>
 </ng-template>

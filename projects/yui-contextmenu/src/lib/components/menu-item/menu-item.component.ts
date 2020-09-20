@@ -64,7 +64,7 @@ export class MenuItemComponent implements OnInit {
         this.menuItem.visible = visible;
     }
 
-    @Output() select: EventEmitter<IMenuItem> = new EventEmitter<IMenuItem>();
+    @Output() menuSelect: EventEmitter<IMenuItem> = new EventEmitter<IMenuItem>();
     @Output() toggledChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     public constructor() {
@@ -74,7 +74,7 @@ export class MenuItemComponent implements OnInit {
     }
 
     public getMenuItemData(parentMenuItem?: IExtendedMenuItem): IExtendedMenuItem {
-        this.menuItem.selectEmitter = this.select;
+        this.menuItem.selectEmitter = this.menuSelect;
         this.menuItem.toggleEmitter = this.toggledChange;
         this.menuItem.parentMenuItemId = parentMenuItem?.menuItemId ?? null;
         this.menuItem.menuItems = this.submenuItems.map(i => i.getMenuItemData(this.menuItem));

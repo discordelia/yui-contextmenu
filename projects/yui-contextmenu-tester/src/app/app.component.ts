@@ -53,7 +53,7 @@ export class AppComponent implements OnInit {
                     // action: () => void 0,
                     text: "Edit Locally",
                     visible: !this.editLocalHidden,
-                    select: (item) => {
+                    menuSelect: (item) => {
                         this.menuItems[2].menuItems[0].visible = false;
                         this.menuItems[2].menuItems[1].visible = true;
                     }
@@ -62,7 +62,7 @@ export class AppComponent implements OnInit {
                     // action: () => void 0,
                     text: "Edit Remotely",
                     visible: this.editLocalHidden,
-                    select: (item) => {
+                    menuSelect: (item) => {
                         this.menuItems[2].menuItems[0].visible = true;
                         this.menuItems[2].menuItems[1].visible = false;
                     }
@@ -107,7 +107,7 @@ export class AppComponent implements OnInit {
             menuItems: [
                 {
                     text: "Delete Local",
-                    select: (item: IMenuItem) => {
+                    menuSelect: (item: IMenuItem) => {
                         console.log(item);
                         console.log(this.viewIcon);
                     }

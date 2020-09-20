@@ -42,6 +42,7 @@ export class ContextMenuComponent implements OnInit, AfterViewInit, AfterContent
     public depth: number = 0;
     public contextMenuTheme: string = "light-theme";
     public menuChangeEvent: (menuEventData: IMenuChangeEvent) => void = null;
+    public menuCloseEvent: () => void = null;
 
     @ContentChildren(MenuItemComponent) subMenuItems: QueryList<MenuItemComponent>;
     @Input() event: MouseEvent;
@@ -71,6 +72,12 @@ export class ContextMenuComponent implements OnInit, AfterViewInit, AfterContent
             this.initializeMenuItems(this.menuItems);
         }
         this.menuChangeEvent = (menuEventData: IMenuChangeEvent) => this.menuChange.emit(menuEventData);
+        this.menuCloseEvent = () => this.menuClose.emit({
+            contextMenuRef: this.menuData.contextMenuRef,
+            depth: this.menuData.depth,
+            menuId: this.menuData.menuId,
+            rootMenuId: this.menuData.rootMenuId
+        });
     }
 
     ngOnChanges(changes: SimpleChanges) {

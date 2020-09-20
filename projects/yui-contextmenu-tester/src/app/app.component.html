@@ -1,9 +1,9 @@
 <div class="wrapper" #wrapperElement>
     <yui-contextmenu [target]="buttonElement" [menuItems]="null" [trigger]="'contextmenu'"
                      (menuOpen)="onMenuOpen($event)" (menuClose)="onMenuClose($event)"
-                     (menuChange)="onMenuChange($event)" theme="dark">
+                     (menuChange)="onMenuChange($event)" theme="light">
         <yui-menu-item text="Create New Data Source" [subtext]="'Ctrl+N'" [toggleable]="true" [(toggled)]="toggleTest"
-                       [icon]="'fa fa-plus'" [disabled]="true" (select)="clickTest()"></yui-menu-item>
+                       [icon]="'fa fa-plus'" [disabled]="true" (menuSelect)="clickTest()"></yui-menu-item>
         <yui-menu-item text="Context Menu Item II" [icon]="iconTest" [subtext]="'Ctrl+Shift+Right Arrow'"
                        [disabled]="false">
             <yui-menu-item text="Subzero" [disabled]="true"></yui-menu-item>
@@ -13,7 +13,7 @@
             <yui-menu-item [text]="menuText.toString()"></yui-menu-item>
         </yui-menu-item>
         <yui-menu-item [divider]="true"></yui-menu-item>
-        <yui-menu-item text="Context Menu Item III" (select)="selectTestMethod($event)"
+        <yui-menu-item text="Context Menu Item III" (menuSelect)="selectTestMethod($event)"
                        [iconTemplate]="iconTemplateTest"></yui-menu-item>
         <yui-menu-item [text]="'Toggleable Menu Item'" [toggleable]="true"></yui-menu-item>
         <yui-menu-item [text]="'Image Icon Menu Item'" [subtext]="'Alt+Insert'" [subtextTemplate]="subtextTemplate"
@@ -34,7 +34,7 @@
             <yui-menu-item text="Export as CSV" [icon]="'fa fa-file-excel-o'" [disabled]="true"></yui-menu-item>
         </yui-menu-item>
         <yui-menu-item [divider]="true"></yui-menu-item>
-        <yui-menu-item text="Context Menu Item III" (select)="selectTestMethod($event)"
+        <yui-menu-item text="Context Menu Item III" (menuSelect)="selectTestMethod($event)"
                        [iconTemplate]="iconTemplateTest">
             <yui-menu-item text="Submenu I" [visible]="visibleTest">
                 <yui-menu-item text="Submenu Submenu" [disabled]="disabledTest"></yui-menu-item>
@@ -58,7 +58,7 @@
     <yui-menu-item text="Add"></yui-menu-item>
     <yui-menu-item text="Edit"></yui-menu-item>
     <yui-menu-item text="Delete"></yui-menu-item>
-    <yui-menu-item text="Change Background Color" (select)="changeBgColor()"></yui-menu-item>
+    <yui-menu-item text="Change Background Color" (menuSelect)="changeBgColor()"></yui-menu-item>
 </yui-contextmenu>
 
 <ng-template #coffeeIconTemplate>

@@ -1,4 +1,4 @@
-import {Component, Input, HostBinding, HostListener, ElementRef, ViewChildren, QueryList, AfterViewInit, OnDestroy} from "@angular/core";
+import {Component, Input, HostListener, ElementRef, ViewChildren, QueryList, AfterViewInit, OnDestroy} from "@angular/core";
 import {ActiveDescendantKeyManager} from "@angular/cdk/a11y";
 import {ContextMenuService} from "../../services/context-menu.service";
 import {IMenuItemContextMenuRefPair} from "../../interfaces/IMenuItemContextMenuRefPair";
@@ -19,6 +19,7 @@ export class ContextMenuContentComponent implements AfterViewInit, OnDestroy {
     private menuCloseSubscription$: Subscription;
     private previousMenuItem: IExtendedMenuItem = null;
     @Input() changeCallback: (data: IMenuChangeEvent) => void;
+    @Input() closeCallback: () => void;
     @Input() depth: number = 0;
     @Input() menuClass: string = "";
     @Input() menuItems: IExtendedMenuItem[] = [];
@@ -33,7 +34,8 @@ export class ContextMenuContentComponent implements AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit(): void {
-        this.keyManager = new ActiveDescendantKeyManager(this.menuItemComponents).withWrap().skipPredicate(item => item.menuItem?.disabled || item.menuItem?.divider);
+        this.keyManager = new ActiveDescendantKeyManager(this.menuItemComponents).withWrap()
+            .skipPredicate(item => item.menuItem?.disabled || item.menuItem?.divider);
         window.setTimeout(() => {
             ((this.elementRef.nativeElement as HTMLElement).querySelector("ul:first-child") as HTMLElement).focus();
         });
@@ -103,6 +105,7 @@ export class ContextMenuContentComponent implements AfterViewInit, OnDestroy {
             case KeyStringValue.Enter:
             case KeyStringValue.Space:
                 this.keyManager.activeItem.onMenuItemSelected(event, this.keyManager.activeItem.menuItem);
+                this.closeCallback();
                 break;
             case KeyStringValue.RightArrow:
                 if (!(this.keyManager.activeItem.menuItem.menuItems?.length > 0)) {
