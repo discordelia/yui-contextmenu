@@ -117,6 +117,9 @@ public createMenu(event: MouseEvent): void {
 <button (click)="createMenu($event)"></button>
 ```
 
+# Known Issues
+**menuClass** input does not work properly.
+
 # License
 
 MIT

@@ -1,6 +1,6 @@
 {
     "name": "@discordelia/contextmenu",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "description": "A simple contextmenu component for Angular v9+.",
     "author": {
         "name": "discordelia"

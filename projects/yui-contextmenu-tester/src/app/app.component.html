@@ -26,7 +26,7 @@
 <div style="width: 500px; height: 500px; display: flex; background: #224422" #greenbox>
     <yui-contextmenu [target]="greenbox" [menuItems]="null" [trigger]="'contextmenu'" [precise]="true"
                      (menuOpen)="onMenuOpen($event)" (menuClose)="onMenuClose($event)"
-                     (menuChange)="onMenuChange($event)" class="light-theme">
+                     (menuChange)="onMenuChange($event)">
         <yui-menu-item text="Export Data" [toggleable]="true" [(toggled)]="toggleTest" [icon]="'fa fa-upload'"
                        [disabled]="true">
             <yui-menu-item text="Export as XML" icon="fa fa-upload" [disabled]="true"></yui-menu-item>
@@ -54,7 +54,7 @@
 </p>
 
 <yui-contextmenu [target]="contextMenuTargetElement" (menuClose)="onMenuClose($event)"
-                 [event]="menuEvent" [trigger]="menuEvent?.type" class="light-theme">
+                 [event]="menuEvent" [trigger]="menuEvent?.type">
     <yui-menu-item text="Add"></yui-menu-item>
     <yui-menu-item text="Edit"></yui-menu-item>
     <yui-menu-item text="Delete"></yui-menu-item>
