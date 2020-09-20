@@ -1,5 +1,6 @@
 <div class="context-menu-item-content" (mouseenter)="onMouseEnter($event, menuItem)"
-     (click)="onMenuItemSelected($event, menuItem)" *ngIf="!menuItem.divider">
+     (click)="onMenuItemSelected($event, menuItem)" [ngClass]="{'disabled': menuItem.disabled}"
+     *ngIf="!menuItem.divider">
     <div class="icon">
         <ng-container *ngIf="menuItem.image && !menuItem.icon && !menuItem.iconTemplate && !menuItem.toggleable">
             <img [src]="menuItem.image" alt=""/>
@@ -23,9 +24,10 @@
         </ng-container>
         <ng-container *ngIf="!menuItem.textTemplate">{{menuItem.text}}</ng-container>
     </div>
-    <div class="subtext" *ngIf="!!menuItem.subtext || !!menuItem.subtextTemplate" [ngClass]="{'disabled': menuItem.disabled}">
+    <div class="subtext" *ngIf="!!menuItem.subtext || !!menuItem.subtextTemplate">
         <ng-container *ngIf="!!menuItem.subtextTemplate">
-            <ng-container *ngTemplateOutlet="getTemplate(menuItem.subtextTemplate); context: { $implicit: menuItem }"></ng-container>
+            <ng-container
+                *ngTemplateOutlet="getTemplate(menuItem.subtextTemplate); context: { $implicit: menuItem }"></ng-container>
         </ng-container>
         <ng-container *ngIf="!menuItem.subtextTemplate">{{menuItem.subtext}}</ng-container>
     </div>
@@ -36,7 +38,8 @@
 <span class="divider" *ngIf="menuItem.divider" (click)="onMenuItemSelected($event, menuItem)"></span>
 
 <ng-template #submenuTemplate>
-    <yui-contextmenu-content [menuItems]="menuItem?.menuItems" [parentMenuItem]="menuItem" [depth]="depth+1" *ngIf="menuItem?.menuItems?.length>0"
+    <yui-contextmenu-content [menuItems]="menuItem?.menuItems" [parentMenuItem]="menuItem" [depth]="depth+1"
+                             *ngIf="menuItem?.menuItems?.length>0"
                              [menuClass]="menuClass" [attr.class]="menuClass" [attr.tabindex]="0"
                              [rootMenuId]="rootMenuId" [changeCallback]="changeCallback"></yui-contextmenu-content>
 </ng-template>

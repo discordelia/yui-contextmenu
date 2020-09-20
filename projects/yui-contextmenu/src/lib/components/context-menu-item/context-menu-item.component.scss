@@ -1,5 +1,10 @@
-$subtext-color: #666;
-$subtext-disabled-color: lightgray;
+$contextmenu-item-light-text: #383848;
+$contextmenu-item-light-disabled: #a7a7af;
+$contextmenu-item-light-subtext-color: #767680;
+
+$contextmenu-item-dark-text: #c0c0c6;
+$contextmenu-item-dark-disabled: #6a6a70;
+$contextmenu-item-dark-subtext-color: #9999a8;
 
 *,
 *::before,
@@ -30,6 +35,7 @@ div.context-menu-item-content {
         width: 25px;
         height: 100%;
         justify-content: center;
+
         & img {
             max-width: 90%;
             max-height: 90%;
@@ -40,10 +46,6 @@ div.context-menu-item-content {
         justify-content: flex-end;
         align-items: center;
         margin-left: 25px;
-        color: $subtext-color;
-        &.disabled {
-            color: $subtext-disabled-color;
-        }
     }
 
     & > div.link {
@@ -71,6 +73,7 @@ div.context-menu-item-content {
         margin-right: 5px;
     }
 }
+
 span.divider {
     display: block;
     height: 1px;
@@ -78,4 +81,50 @@ span.divider {
     margin: 4px 0;
     color: lightgray;
     border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+:host-context(.light-theme) {
+    div.context-menu-item-content {
+        & > div.text,
+        & > div.icon,
+        & > div.link {
+            color: $contextmenu-item-light-text;
+        }
+
+        & > div.subtext {
+            color: $contextmenu-item-light-subtext-color;
+        }
+    }
+
+    div.context-menu-item-content.disabled {
+        & > div.text,
+        & > div.icon,
+        & > div.link,
+        & > div.subtext {
+            color: $contextmenu-item-light-disabled;
+        }
+    }
+}
+
+:host-context(.dark-theme) {
+    div.context-menu-item-content {
+        & > div.text,
+        & > div.icon,
+        & > div.link {
+            color: $contextmenu-item-dark-text;
+        }
+
+        & > div.subtext {
+            color: $contextmenu-item-dark-subtext-color;
+        }
+    }
+
+    div.context-menu-item-content.disabled {
+        & > div.text,
+        & > div.icon,
+        & > div.link,
+        & > div.subtext {
+            color: $contextmenu-item-dark-disabled;
+        }
+    }
 }

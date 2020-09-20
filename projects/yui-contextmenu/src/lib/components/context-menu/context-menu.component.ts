@@ -1,13 +1,20 @@
 import {
+    AfterContentInit,
     AfterViewInit,
     Component,
-    Input, OnDestroy,
-    OnInit, Renderer2, TemplateRef,
-    ViewChild,
     ContentChildren,
+    EventEmitter,
+    HostListener,
+    Input,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Output,
     QueryList,
-    AfterContentInit,
-    HostListener, Output, EventEmitter, OnChanges, SimpleChanges
+    Renderer2,
+    SimpleChanges,
+    TemplateRef,
+    ViewChild
 } from "@angular/core";
 import {ContextMenuService} from "../../services/context-menu.service";
 import {ICoordinate, IPopupTarget} from "@discordelia/popup";
@@ -33,6 +40,7 @@ export class ContextMenuComponent implements OnInit, AfterViewInit, AfterContent
 
     public readonly menuId: number = (ContextMenuService.menuIdentifier++);
     public depth: number = 0;
+    public contextMenuTheme: string = "light-theme";
     public menuChangeEvent: (menuEventData: IMenuChangeEvent) => void = null;
 
     @ContentChildren(MenuItemComponent) subMenuItems: QueryList<MenuItemComponent>;
@@ -41,6 +49,11 @@ export class ContextMenuComponent implements OnInit, AfterViewInit, AfterContent
     @Input() menuItems: IExtendedMenuItem[] = [];
     @Input() precise: boolean = true;
     @Input() target: IPopupTarget;
+
+    @Input() set theme(theme: "dark" | "light") {
+        this.contextMenuTheme = theme === "dark" ? "dark-theme" : "light-theme";
+    }
+
     @Input() trigger: string = "contextmenu";
     @Output() menuChange: EventEmitter<IMenuChangeEvent> = new EventEmitter<IMenuChangeEvent>();
     @Output() menuClose: EventEmitter<IMenuCloseEvent> = new EventEmitter<IMenuCloseEvent>();
@@ -160,5 +173,9 @@ export class ContextMenuComponent implements OnInit, AfterViewInit, AfterContent
             item.visible = item.visible !== false;
             this.initializeMenuItems(item.menuItems?.length > 0 ? item.menuItems as IExtendedMenuItem[] : []);
         });
+    }
+
+    public get MenuClass(): string {
+        return `${this.contextMenuTheme} ${this.menuClass}`;
     }
 }
