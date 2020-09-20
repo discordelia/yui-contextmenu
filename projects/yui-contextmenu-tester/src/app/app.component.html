@@ -1,7 +1,7 @@
 <div class="wrapper" #wrapperElement>
     <yui-contextmenu [target]="buttonElement" [menuItems]="null" [trigger]="'contextmenu'"
                      (menuOpen)="onMenuOpen($event)" (menuClose)="onMenuClose($event)"
-                     (menuChange)="onMenuChange($event)" theme="light">
+                     (menuChange)="onMenuChange($event)" theme="dark">
         <yui-menu-item text="Create New Data Source" [subtext]="'Ctrl+N'" [toggleable]="true" [(toggled)]="toggleTest"
                        [icon]="'fa fa-plus'" [disabled]="true" (menuSelect)="clickTest()"></yui-menu-item>
         <yui-menu-item text="Context Menu Item II" [icon]="iconTest" [subtext]="'Ctrl+Shift+Right Arrow'"

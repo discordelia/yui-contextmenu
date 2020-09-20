@@ -5,7 +5,7 @@ $contextmenu-item-light-disabled: #a7a7af;
 
 $contextmenu-dark-background: #383838;
 $contextmenu-dark-border: 1px solid #585858;
-$contextmenu-item-dark-hover-bg: #474777;
+$contextmenu-item-dark-hover-bg: #47474f;
 $contextmenu-item-dark-disabled: #6a6a70;
 
 
@@ -43,7 +43,7 @@ ul.context-menu-list {
     }
 }
 
-:host-context(.light-theme) {
+:host-context(.theme-light) {
     ul.context-menu-list {
         background: $contextmenu-light-background;
         border: $contextmenu-light-border;
@@ -58,7 +58,7 @@ ul.context-menu-list {
     }
 }
 
-:host-context(.dark-theme) {
+:host-context(.theme-dark) {
     ul.context-menu-list {
         background: $contextmenu-dark-background;
         border: $contextmenu-dark-border;

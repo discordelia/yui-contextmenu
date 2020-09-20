@@ -5,8 +5,8 @@ import {ContextMenuService} from "../../services/context-menu.service";
 
 @Component({
     selector: "yui-menu-item",
-    templateUrl: "./menu-item.component.html",
-    styleUrls: ["./menu-item.component.scss"]
+    template: "",
+    styles: []
 })
 export class MenuItemComponent implements OnInit {
 

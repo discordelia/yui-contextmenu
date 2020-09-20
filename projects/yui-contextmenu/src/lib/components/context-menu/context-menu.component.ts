@@ -25,6 +25,7 @@ import {IContextMenuData} from "../../interfaces/IContextMenuData";
 import {IMenuChangeEvent} from "../../interfaces/IMenuChangeEvent";
 import {IMenuCloseEvent} from "../../interfaces/IMenuCloseEvent";
 import {IMenuOpenEvent} from "../../interfaces/IMenuOpenEvent";
+import {MenuTheme, MenuThemeClass} from "../../types/MenuTheme";
 
 @Component({
     selector: "yui-contextmenu",
@@ -40,7 +41,7 @@ export class ContextMenuComponent implements OnInit, AfterViewInit, AfterContent
 
     public readonly menuId: number = (ContextMenuService.menuIdentifier++);
     public depth: number = 0;
-    public contextMenuTheme: string = "light-theme";
+    public contextMenuTheme: MenuThemeClass = "theme-light";
     public menuChangeEvent: (menuEventData: IMenuChangeEvent) => void = null;
     public menuCloseEvent: () => void = null;
 
@@ -51,8 +52,8 @@ export class ContextMenuComponent implements OnInit, AfterViewInit, AfterContent
     @Input() precise: boolean = true;
     @Input() target: IPopupTarget;
 
-    @Input() set theme(theme: "dark" | "light") {
-        this.contextMenuTheme = theme === "dark" ? "dark-theme" : "light-theme";
+    @Input() set theme(theme: MenuTheme) {
+        this.contextMenuTheme = theme === "dark" ? "theme-dark" : "theme-light";
     }
 
     @Input() trigger: string = "contextmenu";

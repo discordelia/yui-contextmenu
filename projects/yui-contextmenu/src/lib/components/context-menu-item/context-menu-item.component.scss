@@ -83,7 +83,7 @@ span.divider {
     border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
 
-:host-context(.light-theme) {
+:host-context(.theme-light) {
     div.context-menu-item-content {
         & > div.text,
         & > div.icon,
@@ -106,7 +106,7 @@ span.divider {
     }
 }
 
-:host-context(.dark-theme) {
+:host-context(.theme-dark) {
     div.context-menu-item-content {
         & > div.text,
         & > div.icon,
