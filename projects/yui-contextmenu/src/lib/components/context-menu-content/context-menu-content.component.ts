@@ -20,7 +20,7 @@ export class ContextMenuContentComponent implements AfterViewInit, OnDestroy {
     private previousMenuItem: IExtendedMenuItem = null;
     @Input() changeCallback: (data: IMenuChangeEvent) => void;
     @Input() depth: number = 0;
-    @Input() menuClass: string;
+    @Input() menuClass: string = "";
     @Input() menuItems: IExtendedMenuItem[] = [];
     @Input() parentMenuItem: IExtendedMenuItem = null;
     @Input() rootMenuId: number;
