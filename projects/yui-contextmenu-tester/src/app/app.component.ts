@@ -1,6 +1,6 @@
-import {Component, OnInit, TemplateRef, ViewChild} from "@angular/core";
-import {faCoffee, faEye, faPlus, faTrash, faEdit, faChevronDown} from "@fortawesome/free-solid-svg-icons";
-import {IMenuItem, IContextMenuData, IMenuChangeEvent, IMenuOpenEvent, IMenuCloseEvent} from "yui-contextmenu";
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild} from "@angular/core";
+import {faChevronDown, faCoffee, faEdit, faEye, faPlus, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {IMenuChangeEvent, IMenuCloseEvent, IMenuItem, IMenuOpenEvent} from "yui-contextmenu";
 
 
 @Component({
@@ -8,7 +8,7 @@ import {IMenuItem, IContextMenuData, IMenuChangeEvent, IMenuOpenEvent, IMenuClos
     templateUrl: "./app.component.html",
     styleUrls: ["./app.component.scss"]
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
     private disabled: boolean = true;
     private editLocalHidden: boolean = true;
     public coffeeIcon = faCoffee;
@@ -29,6 +29,8 @@ export class AppComponent implements OnInit {
     public contextMenuTargetElement: HTMLElement = null;
     public menuEvent: MouseEvent;
     public menuTriggerType: string = "contextmenu";
+
+    public menuArray: Array<{ mode: string, text: string }> = [];
 
     @ViewChild("coffeeIconTemplate") coffeeIconTemplate: TemplateRef<any>;
     @ViewChild("addIconTemplate") addIconTemplate: TemplateRef<any>;
@@ -120,8 +122,27 @@ export class AppComponent implements OnInit {
         }
     ];
 
+    constructor(
+        private readonly cdr: ChangeDetectorRef
+    ) {
+    }
+
     ngOnInit(): void {
         this.updateMenuText();
+    }
+
+    ngAfterViewInit(): void {
+        // this.menuArray = [
+        //
+        // ];
+        this.menuArray = [
+            {mode: "A", text: "Mode A"},
+            {mode: "B", text: "Mode B"},
+            {mode: "C", text: "Mode C"},
+            {mode: "D", text: "Mode D"},
+            {mode: "E", text: "Mode E"}]
+        ;
+        this.cdr.detectChanges();
     }
 
     public changeBgColor(): void {
@@ -136,15 +157,15 @@ export class AppComponent implements OnInit {
     }
 
     public onMenuChange(event: IMenuChangeEvent): void {
-        console.log("MENU CHANGED: ", event);
+        // console.log("MENU CHANGED: ", event);
     }
 
     public onMenuClose(event: IMenuOpenEvent): void {
-        console.log("MENU CLOSED: ", event);
+        // console.log("MENU CLOSED: ", event);
     }
 
     public onMenuOpen(event: IMenuCloseEvent): void {
-        console.log("MENU OPENED: ", event);
+        // console.log("MENU OPENED: ", event);
     }
 
     public clickTest(): void {
@@ -159,11 +180,14 @@ export class AppComponent implements OnInit {
             // this.iconTest = this.iconTest.includes("plus") ? "fa fa-minus" : "fa fa-plus"
             // this.iconTemplateTest = this.iconTemplateTest === this.coffeeIconTemplate ? this.viewIconTemplate : this.coffeeIconTemplate;
         }, 1000);
+        window.setInterval(() => {
+            this.visibleTest = !this.visibleTest;
+        }, 6000);
     }
 
 
     public selectTestMethod(item: IMenuItem): void {
-        console.log("MENUITEM: ", item);
+        // console.log("MENUITEM: ", item);
     }
 
     private createRandomColor(): void {

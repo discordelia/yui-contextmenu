@@ -42,6 +42,10 @@
             <yui-menu-item [text]="menuText.toString()"></yui-menu-item>
         </yui-menu-item>
         <yui-menu-item text="Close" [icon]="'fa fa-times'"></yui-menu-item>
+        <yui-menu-item text="Loop Submenu" *ngIf="visibleTest">
+            <yui-menu-item *ngFor="let menuItem of menuArray; let ix=index;" [text]="menuItem.text"
+                           (menuSelect)="clickTest()" [visible]="ix!==3 || ix===3&&visibleTest"></yui-menu-item>
+        </yui-menu-item>
     </yui-contextmenu>
 </div>
 

@@ -1,4 +1,15 @@
-import {Component, OnInit, ContentChildren, QueryList, Input, Output, EventEmitter, TemplateRef} from "@angular/core";
+import {
+    Component,
+    OnInit,
+    ContentChildren,
+    QueryList,
+    Input,
+    Output,
+    EventEmitter,
+    TemplateRef,
+    AfterContentInit,
+    ChangeDetectorRef
+} from "@angular/core";
 import {IMenuItem} from "../../interfaces/IMenuItem";
 import {IExtendedMenuItem} from "../../interfaces/IExtendedMenuItem";
 import {ContextMenuService} from "../../services/context-menu.service";
@@ -8,7 +19,7 @@ import {ContextMenuService} from "../../services/context-menu.service";
     template: "",
     styles: []
 })
-export class MenuItemComponent implements OnInit {
+export class MenuItemComponent implements AfterContentInit {
 
     private menuItem: IExtendedMenuItem = {
         parentMenuItemId: null,
@@ -67,10 +78,16 @@ export class MenuItemComponent implements OnInit {
     @Output() menuSelect: EventEmitter<IMenuItem> = new EventEmitter<IMenuItem>();
     @Output() toggledChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    public constructor() {
+    public constructor(
+        private contextMenuService: ContextMenuService
+    ) {
+        Object.assign(this.menuItem, this.contextMenuService.defaultMenuItemSettings);
     }
 
-    ngOnInit(): void {
+    ngAfterContentInit(): void {
+        this.submenuItems.changes.subscribe(() => {
+            this.menuItem.menuItems = this.submenuItems.map(i => i.getMenuItemData(this.menuItem));
+        });
     }
 
     public getMenuItemData(parentMenuItem?: IExtendedMenuItem): IExtendedMenuItem {

@@ -1,20 +1,10 @@
-import {
-    Component,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output,
-    TemplateRef,
-    ViewChild,
-    OnDestroy,
-    ElementRef
-} from "@angular/core";
+import {Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild} from "@angular/core";
 import {ContextMenuService} from "../../services/context-menu.service";
 import {IMenuItemContextMenuRefPair} from "../../interfaces/IMenuItemContextMenuRefPair";
 import {IContextMenuRef} from "../../interfaces/IContextMenuRef";
 import {TemplateType} from "../../types/TemplateType";
 import {IExtendedMenuItem, TOGGLE_ICON} from "../../interfaces/IExtendedMenuItem";
-import {Highlightable, FocusableOption} from "@angular/cdk/a11y";
+import {FocusableOption, Highlightable} from "@angular/cdk/a11y";
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {IContextMenuData} from "../../interfaces/IContextMenuData";
 import {IMenuChangeEvent} from "../../interfaces/IMenuChangeEvent";

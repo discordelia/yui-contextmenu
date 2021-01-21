@@ -1,10 +1,11 @@
-import { Injectable, TemplateRef } from "@angular/core";
-import { ConnectedPosition } from "@angular/cdk/overlay";
-import { IContextMenuRef } from "../interfaces/IContextMenuRef";
-import { IContextMenuTarget } from "../interfaces/IContextMenuTarget";
-import { IContextMenuData } from "../interfaces/IContextMenuData";
-import { Subscription, Subject } from "rxjs";
-import { PopupService } from "@discordelia/popup";
+import {Injectable, TemplateRef} from "@angular/core";
+import {ConnectedPosition} from "@angular/cdk/overlay";
+import {IContextMenuRef} from "../interfaces/IContextMenuRef";
+import {IContextMenuTarget} from "../interfaces/IContextMenuTarget";
+import {IContextMenuData} from "../interfaces/IContextMenuData";
+import {Subject, Subscription} from "rxjs";
+import {PopupService} from "@discordelia/popup";
+import {IExtendedMenuItem} from "../interfaces/IExtendedMenuItem";
 
 @Injectable()
 export class ContextMenuService {
@@ -34,6 +35,27 @@ export class ContextMenuService {
     private menuCloseSubject$: Subject<number> = new Subject<number>();
     private outsideClickSubscription$: Subscription = null;
     private submenuCreatedViaKeyboard: boolean = false;
+    public readonly defaultMenuItemSettings: Partial<IExtendedMenuItem> = {
+        focused: false,
+        parentMenuItemId: null,
+        selectEmitter: null,
+        toggleEmitter: null,
+        disabled: false,
+        text: null,
+        divider: false,
+        icon: null,
+        iconTemplate: null,
+        image: null,
+        menuItems: [],
+        menuSelect: null,
+        subtext: null,
+        subtextTemplate: null,
+        textTemplate: null,
+        toggle: null,
+        toggleable: false,
+        toggled: false,
+        visible: true
+    };
 
     public constructor(
         private popupService: PopupService
@@ -44,10 +66,6 @@ export class ContextMenuService {
         const menuList = this.activeMenuMap.get(menuData.rootMenuId ?? menuData.menuId);
         if (menuList?.length > 0) {
             menuList.push(menuData);
-            // if (menuData.isSubmenu) {
-            //     const rootMenu = menuList.find(m => !m.isSubmenu);
-            //     rootMenu.hasOpenSubmenu = true;
-            // }
         } else {
             this.activeMenuMap.set(menuData.menuId, [menuData]);
         }
@@ -84,11 +102,6 @@ export class ContextMenuService {
         if (menuList?.length > 0) {
             menuList.filter(m => m.depth >= startDepth).forEach(m => m.contextMenuRef?.popupRef?.close());
             this.activeMenuMap.set(rootMenuId, menuList.filter(m => m.depth < startDepth));
-            // const rootMenuData = menuList.find(m => !m.isSubmenu);
-            // if (rootMenuData) {
-            //     rootMenuData.hasOpenSubmenu = this.activeMenuMap.get(rootMenuId)
-            //         ?.some(m => !!m.rootMenuId && m.rootMenuId === rootMenuId);
-            // }
             this.CurrentDepth = startDepth;
             this.menuCloseSubject$.next(startDepth);
         }

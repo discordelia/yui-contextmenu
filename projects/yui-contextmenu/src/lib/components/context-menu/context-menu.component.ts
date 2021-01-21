@@ -102,6 +102,8 @@ export class ContextMenuComponent implements OnInit, AfterViewInit, AfterContent
         this.subMenuItemsSubscription$ = this.subMenuItems.changes.subscribe(() => {
             this.createMenuItems();
             this.initializeMenuItems(this.menuItems);
+            // console.log("Submenu subscription");
+            // console.log(this.menuItems);
         });
     }
 
@@ -110,12 +112,14 @@ export class ContextMenuComponent implements OnInit, AfterViewInit, AfterContent
             return;
         }
         this.createTargetListener();
+
     }
 
     ngOnDestroy(): void {
         this.targetListener?.();
         this.contextMenuService.closeMenu(this.menuId);
         this.subMenuItemsSubscription$?.unsubscribe();
+        console.log(this.subMenuItems.changes);
     }
 
     @HostListener("document:auxclick", ["$event"])
@@ -150,9 +154,7 @@ export class ContextMenuComponent implements OnInit, AfterViewInit, AfterContent
     }
 
     private createMenuItems(): void {
-        if (!this.menuItems || this.menuItems.length === 0) {
-            this.menuItems = this.subMenuItems.map(smi => smi.getMenuItemData() as IExtendedMenuItem);
-        }
+        this.menuItems = this.subMenuItems.map(smi => smi.getMenuItemData() as IExtendedMenuItem);
     }
 
     private createTargetListener(): void {
