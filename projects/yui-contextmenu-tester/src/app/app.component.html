@@ -57,12 +57,26 @@
     Dynamic ContextMenu 2 (Left-click)
 </p>
 
+<div style="background: indigo; color: white;">
+    <ul>
+        <li class="context">AA</li>
+        <li>BB</li>
+        <li class="context">CC</li>
+        <li>DD</li>
+    </ul>
+</div>
+
 <yui-contextmenu [target]="contextMenuTargetElement" (menuClose)="onMenuClose($event)"
                  [event]="menuEvent" [trigger]="menuEvent?.type">
     <yui-menu-item text="Add"></yui-menu-item>
     <yui-menu-item text="Edit"></yui-menu-item>
     <yui-menu-item text="Delete"></yui-menu-item>
     <yui-menu-item text="Change Background Color" (menuSelect)="changeBgColor()"></yui-menu-item>
+</yui-contextmenu>
+
+<yui-contextmenu [target]="'.context'" trigger="click">
+    <yui-menu-item text="Class Target I"></yui-menu-item>
+    <yui-menu-item text="Class Target II" (menuSelect)="clickTest()"></yui-menu-item>
 </yui-contextmenu>
 
 <ng-template #coffeeIconTemplate>

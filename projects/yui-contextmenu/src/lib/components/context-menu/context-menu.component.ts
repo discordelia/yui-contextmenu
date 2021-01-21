@@ -36,7 +36,7 @@ export class ContextMenuComponent implements OnInit, AfterViewInit, AfterContent
 
     private menuData: IContextMenuData = null;
     private subMenuItemsSubscription$: Subscription;
-    private targetListener: () => void = null;
+    private targetListenerRefs: Array<() => void> = [];
     private visible: boolean = false;
 
     public readonly menuId: number = (ContextMenuService.menuIdentifier++);
@@ -50,7 +50,7 @@ export class ContextMenuComponent implements OnInit, AfterViewInit, AfterContent
     @Input() menuClass: string;
     @Input() menuItems: IExtendedMenuItem[] = [];
     @Input() precise: boolean = true;
-    @Input() target: IPopupTarget;
+    @Input() target: IPopupTarget | string;
 
     @Input() set theme(theme: MenuTheme) {
         this.contextMenuTheme = theme === "dark" ? "theme-dark" : "theme-light";
@@ -85,7 +85,7 @@ export class ContextMenuComponent implements OnInit, AfterViewInit, AfterContent
         const targetChanges = changes?.target;
         if (targetChanges && !targetChanges.isFirstChange()
             && targetChanges.currentValue !== targetChanges.previousValue) {
-            this.targetListener?.();
+            this.targetListenerRefs.forEach(ref => ref?.());
             this.createTargetListener();
             window.setTimeout(() => {
                 (this.target as HTMLElement).dispatchEvent(this.event);
@@ -116,10 +116,9 @@ export class ContextMenuComponent implements OnInit, AfterViewInit, AfterContent
     }
 
     ngOnDestroy(): void {
-        this.targetListener?.();
+        this.targetListenerRefs.forEach(ref => ref?.());
         this.contextMenuService.closeMenu(this.menuId);
         this.subMenuItemsSubscription$?.unsubscribe();
-        console.log(this.subMenuItems.changes);
     }
 
     @HostListener("document:auxclick", ["$event"])
@@ -158,12 +157,26 @@ export class ContextMenuComponent implements OnInit, AfterViewInit, AfterContent
     }
 
     private createTargetListener(): void {
-        this.targetListener = this.renderer.listen(this.target, this.trigger, (event: MouseEvent) => {
+        const targetElements: Element[] = [];
+        if (typeof this.target === "string") {
+            document.querySelectorAll(this.target as string).forEach(e => targetElements.push(e));
+        }
+        if (targetElements.length > 0) {
+            for (const e of targetElements) {
+                this.eventHandler(e);
+            }
+        } else {
+            this.eventHandler(this.target);
+        }
+    }
+
+    private eventHandler(targetElement: IPopupTarget | string): void {
+        const listenerRef = this.renderer.listen(targetElement, this.trigger, (event: MouseEvent) => {
             event.stopPropagation();
             event.preventDefault();
             this.contextMenuService.closeAll();
 
-            const target = this.precise ? {x: event.x, y: event.y} as ICoordinate : this.target;
+            const target = this.precise ? {x: event.x, y: event.y} as ICoordinate : targetElement as IPopupTarget;
             const contextMenuRef = this.contextMenuService.createContextMenu(target, this.contextMenuTemplate, false);
 
             this.menuData = {contextMenuRef, depth: this.depth, menuId: this.menuId, rootMenuId: null, isSubmenu: false};
@@ -176,6 +189,7 @@ export class ContextMenuComponent implements OnInit, AfterViewInit, AfterContent
             });
             this.visible = true;
         });
+        this.targetListenerRefs.push(listenerRef);
     }
 
     private initializeMenuItems(items: IExtendedMenuItem[]): void {
