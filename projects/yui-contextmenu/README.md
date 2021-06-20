@@ -18,7 +18,7 @@ _Documentation is work in progress._
 * Install the following packages:
     
 ```
-npm i @angular/cdk @discordelia/popup @discordelia/contextmenu
+npm i @angular/cdk @luminela/popup @luminela/contextmenu
 ```
 
 * Add the following line to your global stylesheet file (styles.scss)

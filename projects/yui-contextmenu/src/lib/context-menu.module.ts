@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { PopupModule } from "@discordelia/popup";
+import { PopupModule } from "@luminela/popup";
 import { CommonModule } from "@angular/common";
 import { OverlayModule } from "@angular/cdk/overlay";
 import { ContextMenuComponent } from "./components/context-menu/context-menu.component";

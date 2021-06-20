@@ -1,9 +1,9 @@
 {
-    "name": "@discordelia/contextmenu",
-    "version": "2.1.0",
+    "name": "@luminela/contextmenu",
+    "version": "2.1.1",
     "description": "A simple contextmenu component for Angular v9+.",
     "author": {
-        "name": "discordelia"
+        "name": "luminela"
     },
     "keywords": [
         "angular",
@@ -15,14 +15,14 @@
         "ng-contextmenu",
         "ngx-contextmenu",
         "yui-contextmenu",
-        "discordelia"
+        "luminela"
     ],
     "license": "MIT",
     "repository": {
-        "url": "https://github.com/discordelia/yui-contextmenu"
+        "url": "https://github.com/luminela/yui-contextmenu"
     },
     "peerDependencies": {
-        "@discordelia/popup": "^1.1.0"
+        "@luminela/popup": "^1.1.0"
     },
     "dependencies": {
         "tslib": "^2.0.0"

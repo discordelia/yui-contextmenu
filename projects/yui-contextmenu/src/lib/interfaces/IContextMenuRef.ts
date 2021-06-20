@@ -1,4 +1,4 @@
-import { IPopupRef } from "@discordelia/popup";
+import { IPopupRef } from "@luminela/popup";
 
 export interface IContextMenuRef {
     popupRef: IPopupRef;

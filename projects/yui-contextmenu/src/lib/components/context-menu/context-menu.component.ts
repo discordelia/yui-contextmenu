@@ -17,7 +17,7 @@ import {
     ViewChild
 } from "@angular/core";
 import {ContextMenuService} from "../../services/context-menu.service";
-import {ICoordinate, IPopupTarget} from "@discordelia/popup";
+import {ICoordinate, IPopupTarget} from "@luminela/popup";
 import {MenuItemComponent} from "../menu-item/menu-item.component";
 import {Subscription} from "rxjs";
 import {IExtendedMenuItem} from "../../interfaces/IExtendedMenuItem";

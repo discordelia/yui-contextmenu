@@ -4,7 +4,7 @@ import {IContextMenuRef} from "../interfaces/IContextMenuRef";
 import {IContextMenuTarget} from "../interfaces/IContextMenuTarget";
 import {IContextMenuData} from "../interfaces/IContextMenuData";
 import {Subject, Subscription} from "rxjs";
-import {PopupService} from "@discordelia/popup";
+import {PopupService} from "@luminela/popup";
 import {IExtendedMenuItem} from "../interfaces/IExtendedMenuItem";
 
 @Injectable()
